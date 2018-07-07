@@ -188,5 +188,4 @@ class Task extends General {
     return this.getBySql(sql, {user: user, task: task});
   }
 }
-  
 module.exports = Task;

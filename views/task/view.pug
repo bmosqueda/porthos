@@ -1,3 +1,4 @@
+- files = JSON.stringify(task.files)
 include ../header.pug
 head
   title Tarea
@@ -6,4 +7,15 @@ body
   .section#app
     .container
       .columns
+        .columun.is-two-fifths
+          .content
+            p.is-size-1 #{task.title}
+            P.is-size-3 #{task.author}
+            p.is-size-7 Ultima edicion #{task.modificationDate}
+            br
+            p #{task.description}
+        .column.is-three-fifths
+          .content
+script.
+  const files = JSON.parse('!{JSON.stringify(task.files)}')  
 include ../footer
