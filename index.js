@@ -9,6 +9,8 @@ const axios = require('axios');
 
 const PORT = process.env.PORT || 3000;
 
+app.set("view engine", "pug");
+
 app.use(session({
     secret: 'ultra secret word',
     resave: true,
