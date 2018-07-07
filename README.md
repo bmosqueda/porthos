@@ -12,8 +12,8 @@ Rating. Un usuario que visualice un trabajo tendrá la oportunidad de dar una es
 
 Lo anterior se elaborará con ayuda de lenguajes de programación como Javascript, y tecnologías como Node.js, Vue.js, MariaDB, Bulma y Pug.js.  
 
-Colaboradores:
+### Colaboradores:
 - saryrules@gmail.com
 - bmosqueda@ucol.mx
 - crodriguez20@ucol.mx
-- saloewe@hotmail.com 
+- saloewe@hotmail.com
