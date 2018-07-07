@@ -1,23 +1,19 @@
-const knex = require('./knex.js');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
-const formidable = require("express-form-data");
 const axios = require('axios');
+const PORT = process.env.PORT || 3000;
 // Routers
 const indexRouter = require('./routes/index');
 
-
 //Models
 const userModel = require('./models/User.js');
-const User = new userModel();
-
 const generalModel = require('./models/User.js');
-const General = new generalModel();
 
-const PORT = process.env.PORT || 3000;
+const User = new userModel();
+const General = new generalModel();
 
 app.set("view engine", "pug");
 
@@ -33,10 +29,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', indexRouter);
 
 app.get('/', async (req, res) => {
-  // let users = await knex('users').select('*');
-  // let users = await User.getAll();
-  let areas = await General.getBySql('SELECT * FROM areas');
-  res.json(areas);
+  let users = await User.getAll();
+  console.log(users);
+  // let areas = await General.getAllByTable('areas');
+  res.json(users);
 });
 
 app.use(express.static(path.join(__dirname,'/public')));

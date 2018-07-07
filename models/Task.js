@@ -1,20 +1,19 @@
 const General = require('./General.js');
 /*
-+------------------+----------------+------+-----+-------------------+-----------------------------+
-| Field            | Type           | Null | Key | Default           | Extra                       |
-+------------------+----------------+------+-----+-------------------+-----------------------------+
-| id               | int(11)        | NO   | PRI | NULL              | auto_increment              |
-| idAuthor         | int(11)        | NO   |     | NULL              |                             |
-| creationDate     | timestamp      | NO   |     | CURRENT_TIMESTAMP |                             |
-| modificationDate | timestamp      | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
-| tags             | varchar(500)   | YES  |     | NULL              |                             |
-| idSchoolLevel    | int(11)        | NO   |     | NULL              |                             |
-| title            | varchar(200)   | NO   |     | NULL              |                             |
-| idArea           | int(11)        | NO   |     | NULL              |                             |
-| description      | varchar(10000) | NO   |     | NULL              |                             |
-| stars            | int(11)        | YES  |     | 0                 |                             |
-+------------------+----------------+------+-----+-------------------+-----------------------------+
-
+  +------------------+----------------+------+-----+-------------------+-----------------------------+
+  | Field            | Type           | Null | Key | Default           | Extra                       |
+  +------------------+----------------+------+-----+-------------------+-----------------------------+
+  | id               | int(11)        | NO   | PRI | NULL              | auto_increment              |
+  | idAuthor         | int(11)        | NO   |     | NULL              |                             |
+  | creationDate     | timestamp      | NO   |     | CURRENT_TIMESTAMP |                             |
+  | modificationDate | timestamp      | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
+  | tags             | varchar(500)   | YES  |     | NULL              |                             |
+  | idSchoolLevel    | int(11)        | NO   |     | NULL              |                             |
+  | title            | varchar(200)   | NO   |     | NULL              |                             |
+  | idArea           | int(11)        | NO   |     | NULL              |                             |
+  | description      | varchar(10000) | NO   |     | NULL              |                             |
+  | stars            | int(11)        | YES  |     | 0                 |                             |
+  +------------------+----------------+------+-----+-------------------+-----------------------------+
 */
 
 class Task extends General {
@@ -23,12 +22,13 @@ class Task extends General {
     super('tasks');
   }
 
+  //**************Task
   getAllByUser(id) {
     let sql = `SELECT * FROM userTasks WHERE idUser = :idUser`;
     return this.getBySql(sql, {idUser: id});
   }
 
-  validate() {
+  validate(user) {
     let props = ['idSchoolLevel', 'title', 'school', 'idArea', 'description'];
     for (var i = props.length - 1; i >= 0; i--)
       if(user[props[i]] == null)
@@ -39,7 +39,7 @@ class Task extends General {
 
   create(task, idUser) {
     return new Promise(async (resolve, reject) => {
-      if(validate() && idUser) {
+      if(validate(task) && idUser) {
         let sql = 
           `INSERT INTO ${this.table} 
           (idAuthor, ${task.tags ? 'tags' : ''}, idSchoolLevel, title, idArea, description)
@@ -53,8 +53,9 @@ class Task extends General {
           let userTask = {idTask: res.info.insertId, idUser: idUser};
 
           //Save the record and relationship between user and this task
-          let res2 = await this.getBySql(sql2, userTask);
-          resolve(res);
+          await this.getBySql(sql2, userTask);
+          task.id = res.info.insertId;
+          resolve(task);
         } catch(err) {
           //This already comes with json format
           reject(err);
@@ -64,26 +65,101 @@ class Task extends General {
         reject({message: 'Required paramether not defined', code: 400});
     });
   }
+  
+  update(task, id) {
+    if(validate(task) && id) {
+      let sql = 
+        `UPDATE INTO ${this.table} 
+        (${task.tags ? 'tags = :tags' : ''}, idSchoolLevel = :idSchoolLevel, 
+        title = :title, idArea = :idArea, description = :description)
+        WHERE id = :id`;
 
+      task.id = id;
+      return this.getBySql(sql, task);
+    }
+    else
+      throw {message: 'Required paramether not defined', code: 400};
+  }
+
+  //**************Comments
+/*
+  +----------+----------------+------+-----+---------+----------------+
+  | Field    | Type           | Null | Key | Default | Extra          |
+  +----------+----------------+------+-----+---------+----------------+
+  | id       | int(11)        | NO   | PRI | NULL    | auto_increment |
+  | idAuthor | int(11)        | NO   |     | NULL    |                |
+  | idTask   | int(11)        | NO   |     | NULL    |                |
+  | content  | varchar(10000) | NO   |     | NULL    |                |
+  +----------+----------------+------+-----+---------+----------------+
+*/
+  saveComment(content, idUser, idTask) {
+    if(content && idUser && idTask) {
+      let sql = 
+        `INSERT INTO comments (idTask, idUser, content)
+        VALUES(:idTask, :idUser, :content)`;
+      let comment = {
+        idUser: idUser,
+        idTask: idTask,
+        content: content,
+      };
+
+      return this.getBySql(sql, comment);
+    }
+    else
+      throw {message: 'Required paramether not defined', code: 400};
+  }
+
+  deleteComment(id) {
+    if(id) {
+      let sql = `DELETE FROM comments WHERE id = :id`;
+
+      return this.getBySql(sql, {id: id});
+    }
+    else
+      throw {message: 'Required paramether not defined', code: 400};
+  }
+
+  getAllCommentsByTask(id) {
+    let sql = `SELECT * FROM comments WHERE idTask = :idTask`;
+
+    return this.getBySql(sql, {idTask: id});
+  }
   //**************File section
-  validateFile() {
+/*
+  +------------+--------------+------+-----+---------+----------------+
+  | Field      | Type         | Null | Key | Default | Extra          |
+  +------------+--------------+------+-----+---------+----------------+
+  | id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+  | idTask     | int(11)      | NO   |     | NULL    |                |
+  | idAuthor   | int(11)      | NO   |     | NULL    |                |
+  | isOfAuthor | tinyint(1)   | NO   |     | 0       |                |
+  | name       | varchar(200) | NO   |     | NULL    |                |
+  +------------+--------------+------+-----+---------+----------------+
+*/
+  validateFile(file) {
     let props = ['name', 'idTask', 'idAuthor', 'isOfAuthor'];
     for (var i = props.length - 1; i >= 0; i--)
-      if(user[props[i]] == null)
+      if(file[props[i]] == null)
         return false;
     return true;
   }
 
-  saveFile() {
-    if(validateFile()) {
+  saveFile(file) {
+    if(validateFile(file)) {
       let sql =  
         `INSERT INTO taskFiles (name, idTask, idAuthor, isOfAuthor) 
         VALUES(:name, :idTask, :idAuthor, :isOfAuthor)`;
 
-      return this.getBySql(sql, {idUser: id});
+      return this.getBySql(sql, file);
     }
     else
       throw {message: 'Required paramether not defined', code: 400};
+  }
+
+  isOfAuthor(idTask, idUser) {
+    let sql = `SELECT COUNT(*) FROM ${this.table} WHERE idAuthor = :idUser AND id = :idTask`;
+
+    return this.getBySql(sql, {idUser: id, idTask: idTask});
   }
 }
   
