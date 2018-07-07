@@ -51,8 +51,10 @@ app.get('/otra', async (req, res) => {
 app.use(express.static(path.join(__dirname,'/public')));
 app.use('/bulma', express.static(path.join(__dirname,'/node_modules/bulma/css')));
 app.use('/bulma-tagsinput', express.static(path.join(__dirname,'/node_modules/bulma-tagsinput/dist')));
-app.use('/vue', express.static(path.join(__dirname, '/node_modules/vue/dist/')));
+app.use('/vuejs', express.static(path.join(__dirname, '/node_modules/vue/dist/')));
 app.use('/axios', express.static(path.join(__dirname, '/node_modules/axios/dist')));
 app.use('/CKEDITOR', express.static(path.join(__dirname, '/node_modules/@ckeditor/ckeditor5-build-classic/build')));
+app.use('/tables', express.static(path.join(__dirname, '/node_modules/vue-tables-2/dist/')))
+app.use('/fontawesome',express.static(path.join(__dirname, '/node_modules/@fortawesome/fontawesome-free/')))
 
 app.listen(PORT);

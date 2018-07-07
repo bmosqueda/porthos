@@ -184,7 +184,7 @@ class Task extends General {
   }
 
   getAllUserTask(task, user) {
-    const sql = `SELECT name, isOfAuthor FROM taskFiles WHERE idAuthor = :user AND idTask = :task`
+    const sql = `SELECT id, name, isOfAuthor FROM taskFiles WHERE idAuthor = :user AND idTask = :task`
     return this.getBySql(sql, {user: user, task: task});
   }
 }

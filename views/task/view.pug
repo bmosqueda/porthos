@@ -2,20 +2,96 @@
 include ../header.pug
 head
   title Tarea
+link(rel="stylesheet", href="/fontawesome/css/solid.css")
+link(rel="stylesheet", href="/fontawesome/css/fontawesome.css")
 body
   include ../navbar.pug
   .section#app
     .container
       .columns
-        .columun.is-two-fifths
+        .columun.is-5
           .content
             p.is-size-1 #{task.title}
             P.is-size-3 #{task.author}
             p.is-size-7 Ultima edicion #{task.modificationDate}
             br
             p #{task.description}
-        .column.is-three-fifths
+        .column.is-7
           .content
+            v-client-table(:columns="columns" :data="documents" :options="options")
+              div(slot='type' slot-scope='props')
+                p(v-if='files.images.test(props.row.name)')
+                  span.icon.is-large.has-text-primary
+                    i.fas.fa-file-image.fa-2x
+                  span &nbsp;Imagen
+                p(v-else-if='files.text.test(props.row.name)')
+                  span.icon.is-large.has-text-word
+                    i.fas.fa-file-word.fa-2x
+                  span &nbsp;Documento
+                p(v-else-if='files.sheets.test(props.row.name)')
+                  span.icon.is-large.has-text-excel
+                    i.fas.fa-file-excel.fa-2x
+                  span &nbsp;Hoja de Calculo
+                p(v-else-if='files.slides.test(props.row.name)')
+                  span.icon.is-large.has-text-ppt
+                    i.fas.fa-file-powerpoint.fa-2x
+                  span &nbsp;Presentaci&oacute;n
+                p(v-else-if='files.audio.test(props.row.name)')
+                  span.icon.is-large.has-text-audio
+                    i.fas.fa-file-audio.fa-2x
+                  span &nbsp;Audio
+                p(v-else-if='files.video.test(props.row.name)')
+                  span.icon.is-large.has-text-video
+                    i.fas.fa-file-video.fa-2x
+                  span &nbsp;Video
+                p(v-else-if='files.pdf.test(props.row.name)')
+                  span.icon.is-large.has-text-pdf
+                    i.fas.fa-file-pdf.fa-2x
+                  span &nbsp;PDF
+                p(v-else)
+                  span.icon.is-large
+                    i.fas.fa-file.fa-2x
+                  span &nbsp;Archivo
+              div(slot='options' slot-scope='props')
+                button.button.is-info(v-if='files.text.test(props.row.name)' @click='')
+                  span.icon
+                    i.fas.fa-eye.fa-2x
+                  span &nbsp;Ver
+                p(v-else-if='files.images.test(props.row.name)')
+                  span.icon.is-large.has-text-word
+                    i.fas.fa-file-word.fa-2x
+                  span &nbsp;Documento
+                p(v-else-if='files.sheets.test(props.row.name)')
+                  span.icon.is-large.has-text-excel
+                    i.fas.fa-file-excel.fa-2x
+                  span &nbsp;Hoja de Calculo
+                p(v-else-if='files.slides.test(props.row.name)')
+                  span.icon.is-large.has-text-ppt
+                    i.fas.fa-file-powerpoint.fa-2x
+                  span &nbsp;Presentaci&oacute;n
+                p(v-else-if='files.audio.test(props.row.name)')
+                  span.icon.is-large.has-text-audio
+                    i.fas.fa-file-audio.fa-2x
+                  span &nbsp;Audio
+                p(v-else-if='files.video.test(props.row.name)')
+                  span.icon.is-large.has-text-video
+                    i.fas.fa-file-video.fa-2x
+                  span &nbsp;Video
+                p(v-else-if='files.pdf.test(props.row.name)')
+                  span.icon.is-large.has-text-pdf
+                    i.fas.fa-file-pdf.fa-2x
+                  span &nbsp;PDF
+                p(v-else)
+                  span.icon.is-large
+                    i.fas.fa-file.fa-2x
+                  span &nbsp;Archivo
+    .modal
+      .modal-background
+      .modal-content
+        iframe(src='http://docs.google.com/gview?url=https://www.dspace.espol.edu.ec/bitstream/123456789/25065/1/Tesis.docx&embedded=true')
+      button.modal-close.is-large(aria-label='close')
 script.
-  const files = JSON.parse('!{JSON.stringify(task.files)}')  
+  const files = JSON.parse('!{JSON.stringify(task.files)}');
+script(src='/tables/vue-tables-2.min.js')
+script(src='../../vue/controllers/view-task.js')
 include ../footer
