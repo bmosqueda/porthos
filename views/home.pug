@@ -3,6 +3,8 @@ include header.pug
     title Porthus
   body
     include navbar.pug
+    .section
+      .container
       if(tasks)
         each task in tasks
           article.media
@@ -30,6 +32,25 @@ include header.pug
             .media-right
               button.delete
     p#status
+                  br
+                  |
+                  small #{task.email}
+                  br
+                  | #{task.description}
+            nav.level.is-mobile
+              .level-left
+                a.level-item
+                  span.icon.is-small
+                    i.fas.fa-reply
+                a.level-item
+                  span.icon.is-small
+                    i.fas.fa-retweet
+                a.level-item
+                  span.icon.is-small
+                    i.fas.fa-heart
+          .media-right
+            button.delete
+        p#status
     include footer.pug
 script(src="/js/fb.js")
 script(src="/js/axios.min.js")
