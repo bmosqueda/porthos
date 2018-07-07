@@ -8,6 +8,21 @@ const Task = new taskModel();
 
 router.use(formidable.parse({keepExtensions: true}));
 
+router.route('/')
+  .post(async (req,res) => {
+    try {
+      if(req.session.user_id) {
+        //Id object returned has id
+        let task = await Task.create(req.body, req.session.user_id);
+        res.status(201).json(task);
+      }
+      else
+        res.sendStatus(401);
+    } catch (err) {
+      res.status(err.code).json({error: err.message});
+    }
+  });
+
 router.route('/user/:idUser')
   .get(async (req,res) => {
     try {
@@ -16,15 +31,6 @@ router.route('/user/:idUser')
       res.status(err.code).json({error: err.message});
     }
   })
-  .post(async (req,res) => {
-    try {
-      //Id object returned has id
-      let task = await Task.create(req.body, req.params.idUser);
-      res.status(201).json(task);
-    } catch (err) {
-      res.status(err.code).json({error: err.message});
-    }
-  });
 
 router.route('/:id')
   .put(async (req, res) => {
