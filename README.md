@@ -1,4 +1,7 @@
-“Todos para uno… Y uno para todos”
+# Porthos
+
+> “Todos para uno… Y uno para todos” - Alejandro Dumas
+
 Hay factores en el ámbito estudiantil que impiden que los alumnos realicen un proyecto o tarea de manera eficiente. Uno de los aspectos que más problema da es la falta de inspiración o conocimiento acerca de los temas requeridos. Por lo que nosotros como estudiantes que conocen y viven esta situación elaboraremos una plataforma con el objetivo de compartir los trabajos realizados en los diferentes niveles de escolaridad y áreas de estudio. 
 Algunos de los requerimientos que se han propuesto lograr en  este proceso de creación son los que a continuación se explicarán. 
 Registro de usuario. Al alumno o la persona interesada en el sitio se le pedirá hacer un registro sobre el nivel o área de interés, entre otros datos, que servirán para dar una mejor experiencia. 
@@ -10,11 +13,8 @@ Rating. Un usuario que visualice un trabajo tendrá la oportunidad de dar una es
 
 Lo anterior se elaborará con ayuda de lenguajes de programación como Javascript, y tecnologías como Node.js, Vue.js, MariaDB, Bulma y Pug.js.  
 
-Integrantes:
-saryrules@gmail.com
-
-bmosqueda@ucol.mx
-
-crodriguez20@ucol.mx
-
-saloewe@hotmail.com 
+### Colaboradores:
+- saryrules@gmail.com
+- bmosqueda@ucol.mx
+- crodriguez20@ucol.mx
+- saloewe@hotmail.com
