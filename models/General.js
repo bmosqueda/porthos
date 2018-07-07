@@ -47,6 +47,12 @@ class General {
     return this.getBySql(sql);
   };
 
+  getAllByTable(tableName) {
+    let sql = `SELECT * FROM ${tableName}`;
+
+    return this.getBySql(sql);
+  };
+
   deleteById(id) {
     let sql = `DELETE FROM ${this.table} WHERE id = :id`;
 

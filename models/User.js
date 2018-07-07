@@ -12,7 +12,6 @@ const General = require('./General.js');
   | idArea   | int(11)      | NO   |     | NULL    |                |
   | info     | varchar(750) | YES  |     | NULL    |                |
   +----------+--------------+------+-----+---------+----------------+
-
 */
 
 class User extends General {
@@ -47,9 +46,9 @@ class User extends General {
   update(user, id) {
     if(validate(user) && id) {
       let sql = 
-        `UPDATE INTO ${this.table} 
-        (name, email, ${user.urlImage ? 'urlImage' : ''}, ${user.token ? 'token' : ''}, school, idArea, info)
-        VALUES(:name, :email, ${user.urlImage ? ':urlImage' : ''}, ${user.token ? ':token' : ''}, :school, :idArea, :info)
+        `UPDATE ${this.table} SET 
+        name = :name, email = :email, ${user.urlImage ? 'urlImage = :urlImage' : ''}, 
+        ${user.token ? 'token = :token' : ''}, school = :school, idArea = :idArea, info = :info 
         WHERE id = :id`;
 
       user.id = id;
