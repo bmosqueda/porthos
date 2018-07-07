@@ -1,7 +1,6 @@
 # Porthos
 
->“Todos para uno… Y uno para todos”
-- Alejandro Dumas
+> “Todos para uno… Y uno para todos” - Alejandro Dumas
 
 Hay factores en el ámbito estudiantil que impiden que los alumnos realicen un proyecto o tarea de manera eficiente. Uno de los aspectos que más problema da es la falta de inspiración o conocimiento acerca de los temas requeridos. Por lo que nosotros como estudiantes que conocen y viven esta situación elaboraremos una plataforma con el objetivo de compartir los trabajos realizados en los diferentes niveles de escolaridad y áreas de estudio. 
 Algunos de los requerimientos que se han propuesto lograr en  este proceso de creación son los que a continuación se explicarán. 
