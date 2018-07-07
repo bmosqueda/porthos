@@ -8,8 +8,6 @@ function onSignIn(googleUser) {
       for (let i = 0, j = btns.length; i < j; i++)
         btns[i].style.visibility = 'hidden';
       document.getElementById('logout').style.visibility = 'visible';
-      console.log(data);
-      alert('loggueado con google');
     })
     .catch(err =>  {
       for (let i = 0, j = btns.length; i < j; i++)
@@ -26,7 +24,6 @@ function signOut() {
     window.axios.post(`/session/logout`)
       .then(({data}) => {
         console.log(data);
-        alert('Logout con google');
         const btns = document.getElementsByClassName('btn-login');
         for (let i = 0, j = btns.length; i < j; i++)
           btns[i].style.visibility = 'visible';

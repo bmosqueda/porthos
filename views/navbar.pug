@@ -9,11 +9,6 @@ script.
       xfbml      : true,
       version    : 'v3.0'
     });
-    /*
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-    */
   };
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -35,13 +30,10 @@ nav#navbar.navbar.is-primary
     .navbar-end
       .navbar-item
         .field.is-grouped
+          p.control.btn-login
+            button.button.is-link(onclick="fbLogin()") Facebok
+              //- button.button.is-danger(onclick="document.getElementsByClassName('g-signin2')[0].click()") Google
           p.control
-            .btn-login
-              button.button.is-link(onclick="fbLogin()") Facebok
-              button.button.is-danger(onclick="document.getElementId('googleLogin').click()") Google
-            #googleLogin.btn-login(class="g-signin2" data-onsuccess="onSignIn" hidden)
-            #logout(hidden)
+            .btn-login(class="g-signin2" data-onsuccess="onSignIn")
+          p.control#logout(style="visibility: hidden")
               button.button.is-dark(onclick='logout()') Salir
-            //- fb:login-button(scope='public_profile,email', onlogin='checkLoginState();')
-              span
-                | Facebook
