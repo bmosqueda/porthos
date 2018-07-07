@@ -24,12 +24,12 @@ class Task extends General {
 
   //**************Task
   getAllByUser(id) {
-    let sql = `SELECT * FROM userTasks WHERE idUser = :idUser`;
+    let sql = `SELECT * FROM tasks WHERE idAuthor = :idUser`;
     return this.getBySql(sql, {idUser: id});
   }
 
-  getAllIfoByUser(id) {
-    const sql = `SELECT tasks.*, users.name, users.email, tasks. FROM tasks INNER JOIN idAuthor = :idUser`;
+  getAllInfoByUser(id) {
+    const sql = `SELECT tasks.*, users.name, users.email FROM tasks INNER JOIN users ON tasks.idAuthor = users.id WHERE idAuthor = :idUser`;
     return this.getBySql(sql, {idUser: id});
   }
 
