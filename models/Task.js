@@ -71,7 +71,6 @@ class Task extends General {
     for (var i = props.length - 1; i >= 0; i--)
       if(user[props[i]] == null)
         return false;
-
     return true;
   }
 
