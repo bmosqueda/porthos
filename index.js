@@ -50,6 +50,7 @@ app.get('/otra', async (req, res) => {
 
 app.use(express.static(path.join(__dirname,'/public')));
 app.use('/bulma', express.static(path.join(__dirname,'/node_modules/bulma/css')));
+app.use('/bulma-tagsinput', express.static(path.join(__dirname,'/node_modules/bulma-tagsinput/dist')));
 app.use('/vue', express.static(path.join(__dirname, '/node_modules/vue/dist/')));
 app.use('/axios', express.static(path.join(__dirname, '/node_modules/axios/dist')));
 

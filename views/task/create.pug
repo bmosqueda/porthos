@@ -9,25 +9,30 @@ body
         .field
           label(for="title") Título
           .control
-            input(type="text" class="input" placeholder="Título")
+            input(type="text" class="input" placeholder="Título" maxlength="200")
         .field
           label(for="title") Tags
           .control
-            input(type="text" class="input" placeholder="Título")
+            input(class="input" type="tags" placeholder="Add Tag" value="Tag1,Tag2,Tag3")
         .field
           label(for="title") Nivel
           .control
             .select(style="width: 100%;")
               select(v-model="levelSelect" style="width: 100%;")
+                option(disabled value="-1" selected) - Selecciona un nivel - 
                 option(v-for="level in levels" :value="level.id") {{level.name}}
         .field
           label(for="title") Área
             .control
               .select(style="width: 100%;")
                 select(v-model="areaSelect" style="width: 100%;")
+                  option(disabled value="-1" selected) - Selecciona un área - 
                   option(v-for="area in areas" :value="area.id") {{area.name}}
         .field
           label(for="title") Descripción
           .control
             input(type="text" class="input" placeholder="Título")
+        .field
+          input(type="button" class="control" placeholder="Título")
+  script(src="/vue/controllers/create-task.js")            
 include ../footer

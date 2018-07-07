@@ -2,8 +2,8 @@ const General = require('./General.js');
 
 class Catalog extends General {
   //All methods call getBySql defined on General model
-  constructor(tableName){
-    super(tableName);
+  constructor(){
+    super('');
   }
 
 /*
