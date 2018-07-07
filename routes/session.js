@@ -10,6 +10,8 @@ session.post('/fb/:token',(req,res) => {
       try {
         let isUserStored = await User.getByEmail(data.email);
         if(isUserStored[0]) {
+          req.session.user_id = isUserStored[0].id;
+          req.session.save();
           res.json(isUserStored[0]);
         }
         else {

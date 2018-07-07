@@ -73,40 +73,43 @@ router.route('/comment/user/:idUser/task/:idTask')
   });
 
 // id: id Task
-router.route('/file/:idTask/user/:idAuthor')
+router.route('/file/:idTask')
   .post(async (req, res) => {
-    if(req.files.file.size <= 10000) {
-      let extension = req.files.file.name.split(".").pop();
-      let now = (new Date()).toISOString();
-      let name = `${now}_${req.params.idTask}.${extension}`;
-      // let isOfAuthor = await Task.isOfAuthor(idTask, idUser);
-      let isOfAuthor = 1;
+    if(req.session.user_id) {
+      if(req.files.file.size <= 10485760) {
+        let extension = req.files.file.name.split(".").pop();
+        let now = (new Date()).toISOString();
+        let name = `${now}_${req.params.idTask}.${extension}`;
+        let isOfAuthor = await Task.isOfAuthor(req.params.idTask, req.session.user_id);
+        c
+        let file = {
+          name: name,
+          idTask: req.params.idTask,
+          idAuthor: req.session.user_id,
+          isOfAuthor: isOfAuthor
+        };
 
-      let file = {
-        name: name,
-        idTask: req.params.idTask,
-        idAuthor: req.params.idAuthor,
-        isOfAuthor: isOfAuthor
-      };
-
-      //Save the file in our public folder
-      mv(req.files.file.path, path.join(PATH,`public/files/${name}`), async (err) => {
-        if(err) {
-          console.error(err.message);
-          res.status(500).json(err);
-        }
-        else {
-          try {
-            let result = await Task.saveFile(file);
-            file.id = result.info.insertId;
-            res.status(201).json(file);
+        //Save the file in our public folder
+        mv(req.files.file.path, path.join(PATH,`public/files/${name}`), async (err) => {
+          if(err) {
+            console.error(err.message);
+            res.status(500).json(err);
           }
-          catch(err) {
-            res.status(err.code).json({error: err.message});
+          else {
+            try {
+              let result = await Task.saveFile(file);
+              file.id = result.info.insertId;
+              res.status(201).json(file);
+            }
+            catch(err) {
+              res.status(err.code).json({error: err.message});
+            }
           }
-        }
-      });
+        });
+      }
     }
+    else
+      res.sendStatus(401);
   });
 
 module.exports = router;

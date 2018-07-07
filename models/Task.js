@@ -34,7 +34,7 @@ class Task extends General {
   }
 
   validate(user) {
-    let props = ['idSchoolLevel', 'title', 'school', 'idArea', 'description'];
+    let props = ['idSchoolLevel', 'title', 'idArea', 'description'];
     for (var i = props.length - 1; i >= 0; i--)
       if(user[props[i]] == null)
         return false;
@@ -48,23 +48,24 @@ class Task extends General {
         let sql = 
           `INSERT INTO ${this.table} 
           (idAuthor, ${task.tags ? 'tags' : ''}, idSchoolLevel, title, idArea, description)
-          VALUES(:idAuthor, ${task.tags ? ':tags' : ''}, :idSchoolLevel, title, idArea, description)`;
+          VALUES(:idAuthor, ${task.tags ? ':tags' : ''}, :idSchoolLevel, :title, :idArea, :description)`;
         task.idAuthor = idUser;
 
-        try {
+        let res = await this.getBySql(sql, task);
+        task.id = res.info.insertId;
+        resolve(task);
+        /*try {
           //Save the task info
-          let res = await this.getBySql(sql, task);
           let sql2 = `INSERT INTO userTasks (idTask, idUser) VALUES(:idTask, :idUser)`;
           let userTask = {idTask: res.info.insertId, idUser: idUser};
 
           //Save the record and relationship between user and this task
           await this.getBySql(sql2, userTask);
-          task.id = res.info.insertId;
-          resolve(task);
+          
         } catch(err) {
           //This already comes with json format
           reject(err);
-        }
+        }*/
       }
       else
         reject({message: 'Required paramether not defined', code: 400});
@@ -179,7 +180,7 @@ class Task extends General {
   isOfAuthor(idTask, idUser) {
     let sql = `SELECT COUNT(*) FROM ${this.table} WHERE idAuthor = :idUser AND id = :idTask`;
 
-    return this.getBySql(sql, {idUser: id, idTask: idTask});
+    return this.getBySql(sql, {idUser: idUser, idTask: idTask});
   }
 
   getAllUserTask(task, user) {
