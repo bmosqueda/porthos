@@ -44,7 +44,7 @@ class Task extends General {
 
   create(task, idUser) {
     return new Promise(async (resolve, reject) => {
-      if(validate(task) && idUser) {
+      if(this.validate(task) && idUser) {
         let sql = 
           `INSERT INTO ${this.table} 
           (idAuthor, ${task.tags ? 'tags' : ''}, idSchoolLevel, title, idArea, description)
@@ -72,7 +72,7 @@ class Task extends General {
   }
   
   update(task, id) {
-    if(validate(task) && id) {
+    if(this.validate(task) && id) {
       let sql = 
         `UPDATE INTO ${this.table} 
         (${task.tags ? 'tags = :tags' : ''}, idSchoolLevel = :idSchoolLevel, 
@@ -150,7 +150,7 @@ class Task extends General {
   }
 
   saveFile(file) {
-    if(validateFile(file)) {
+    if(this.validateFile(file)) {
       let sql =  
         `INSERT INTO taskFiles (name, idTask, idAuthor, isOfAuthor) 
         VALUES(:name, :idTask, :idAuthor, :isOfAuthor)`;
