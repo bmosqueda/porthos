@@ -62,6 +62,8 @@ session.post('/google', (req, res) => {
         let isUserStored = await User.getByEmail(data.email);
 
         if(isUserStored[0]) {
+          req.session.user_id = isUserStored[0].id;
+          req.session.save();
           res.json(isUserStored[0]);
         }
         else {
@@ -78,7 +80,6 @@ session.post('/google', (req, res) => {
             //Iniciar la sesión
             req.session.user_id = result.info.insertId;
             req.session.save();
-
             user.id = result.info.insertId;
             res.json(user);
           }
