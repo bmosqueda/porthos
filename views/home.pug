@@ -12,10 +12,9 @@ include header.pug
           .content
             p
               strong #{task.name}
-              small @johnsmith
-              small 31m
+              small #{task.email}
               br
-              |         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+              | #{task.description}
           nav.level.is-mobile
             .level-left
               a.level-item

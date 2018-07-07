@@ -28,6 +28,11 @@ class Task extends General {
     return this.getBySql(sql, {idUser: id});
   }
 
+  getAllIfoByUser(id) {
+    const sql = `SELECT tasks.*, users.name, users.email, tasks. FROM tasks INNER JOIN idAuthor = :idUser`;
+    return this.getBySql(sql, {idUser: id});
+  }
+
   validate(user) {
     let props = ['idSchoolLevel', 'title', 'school', 'idArea', 'description'];
     for (var i = props.length - 1; i >= 0; i--)
