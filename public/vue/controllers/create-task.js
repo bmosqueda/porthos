@@ -61,6 +61,19 @@ const vm = new Vue({
         window.axios.post('/api/task', task)
           .then(({data}) => {
             console.log(data);
+            for(let i = this.files.length - 1; i >= 0; i--) {
+              let formData = new FormData();
+              formData.append('file', this.files[i])
+
+              window.axios.post(
+                `/api/task/file/${data.id}`, 
+                formData, 
+                { headers: { 'content-type': 'multipart/form-data' } }
+              ).then(result => {
+                console.log(result);
+              }).catch(err => console.log(err));
+
+            }
           })
           .catch(err => console.error(err));
       }
