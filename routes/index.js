@@ -14,6 +14,10 @@ router.use('/session', sessionMiddleware);
 router.use('/task', sessionMiddleware);
 router.use('/home', sessionMiddleware);
 
+router.get('/', (req, res) => {
+  res.render('index');
+});
+
 router.route('/home')
   .get((req,res) => {
     let tasks = null;

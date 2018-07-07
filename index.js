@@ -29,7 +29,7 @@ app.use(session({
 
 app.use('/', indexRouter);
 
-app.get('/', async (req, res) => {
+/*app.get('/', async (req, res) => {
   let users = await User.getAll();
   // console.log(users);
   req.session.user_id = 1;
@@ -46,7 +46,7 @@ app.get('/otra', async (req, res) => {
   }
   // let areas = await General.getAllByTable('areas');
   res.send('Hola mundo');
-});
+});*/
 
 app.use(express.static(path.join(__dirname,'/public')));
 app.use('/bulma', express.static(path.join(__dirname,'/node_modules/bulma/css')));
@@ -54,5 +54,6 @@ app.use('/bulma-tagsinput', express.static(path.join(__dirname,'/node_modules/bu
 app.use('/vue', express.static(path.join(__dirname, '/node_modules/vue/dist/')));
 app.use('/axios', express.static(path.join(__dirname, '/node_modules/axios/dist')));
 app.use('/CKEDITOR', express.static(path.join(__dirname, '/node_modules/@ckeditor/ckeditor5-build-classic/build')));
+app.use('/bulma-carousel', express.static(path.join(__dirname,'/node_modules/bulma-extensions/bulma-carousel/dist')));
 
 app.listen(PORT);

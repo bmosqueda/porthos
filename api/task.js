@@ -81,12 +81,12 @@ router.route('/file/:idTask')
         let now = (new Date()).toISOString();
         let name = `${now}_${req.params.idTask}.${extension}`;
         let isOfAuthor = await Task.isOfAuthor(req.params.idTask, req.session.user_id);
-        c
+
         let file = {
           name: name,
           idTask: req.params.idTask,
           idAuthor: req.session.user_id,
-          isOfAuthor: isOfAuthor
+          isOfAuthor: Number(isOfAuthor[0]['COUNT(*)'])
         };
 
         //Save the file in our public folder

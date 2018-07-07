@@ -1,55 +1,55 @@
 include ../header.pug
-head
-  title Tarea
-body
-  include ../navbar.pug
-  .section#app
-    .columns
-      .column.is-8.is-offset-2
-        .field
-          label(for="title") Título
-          .control
-            input(type="text" class="input" v-model="title" placeholder="Título" maxlength="200")
-        .field
-          label(for="title") Tags
-          .control
-            input(class="input" type="tags" v-model="tags" placeholder="Add Tag" value="Tag1,Tag2,Tag3")
-        .field
-          label(for="title") Nivel
-          .control
-            .select(style="width: 100%;")
-              select(v-model="levelSelect" style="width: 100%;")
-                option(disabled value="-1" selected) - Selecciona un nivel - 
-                option(v-for="level in levels" :value="level.id") {{level.name}}
-        .field
-          label(for="title") Área
+  head
+    title Tarea
+  body
+    include ../navbar.pug
+    .section#app
+      .columns
+        .column.is-8.is-offset-2
+          .field
+            label(for="title") Título
+            .control
+              input(type="text" class="input" v-model="title" placeholder="Título" maxlength="200")
+          .field
+            label(for="title") Tags
+            .control
+              input(class="input" type="tags" v-model="tags" placeholder="Add Tag" value="Tag1,Tag2,Tag3")
+          .field
+            label(for="title") Nivel
             .control
               .select(style="width: 100%;")
-                select(v-model="areaSelect" style="width: 100%;")
-                  option(disabled value="-1" selected) - Selecciona un área - 
-                  option(v-for="area in areas" :value="area.id") {{area.name}}
-        .field
-          label(for="title") Descripción
-          .control
-            textarea(name="content" id="editor" rows="10")
-        .field
-          label(for="files") Archivos
-          .control
-            input(type="file" id="fileInput" @change="newFile")
-        .field     
-          table.table.is-bordered.is-narrow.is-fullwidth(v-show="files.length > 0")
-            thead
-              tr
-                th Nombre del archivo
-                th Eliminar
-            tbody
-              tr(v-for="(file, index) in files")
-                td {{file.name}}
-                td 
-                  button(class="button is-danger" :value="index" @click="discardFile") Descartar
-        .field
-          .control
-            button(class="button is-success" @click="saveTask") Guardar
-  script(src="/CKEDITOR/ckeditor.js")
-  script(src="/vue/controllers/create-task.js")            
-include ../footer
+                select(v-model="levelSelect" style="width: 100%;")
+                  option(disabled value="-1" selected) - Selecciona un nivel - 
+                  option(v-for="level in levels" :value="level.id") {{level.name}}
+          .field
+            label(for="title") Área
+              .control
+                .select(style="width: 100%;")
+                  select(v-model="areaSelect" style="width: 100%;")
+                    option(disabled value="-1" selected) - Selecciona un área - 
+                    option(v-for="area in areas" :value="area.id") {{area.name}}
+          .field
+            label(for="title") Descripción
+            .control
+              textarea(name="content" id="editor" rows="10")
+          .field
+            label(for="files") Archivos
+            .control
+              input(type="file" id="fileInput" @change="newFile")
+          .field     
+            table.table.is-bordered.is-narrow.is-fullwidth(v-show="files.length > 0")
+              thead
+                tr
+                  th Nombre del archivo
+                  th Eliminar
+              tbody
+                tr(v-for="(file, index) in files")
+                  td {{file.name}}
+                  td 
+                    button(class="button is-danger" :value="index" @click="discardFile") Descartar
+          .field
+            .control
+              button(class="button is-success" @click="saveTask") Guardar
+    script(src="/CKEDITOR/ckeditor.js")
+    script(src="/vue/controllers/create-task.js")            
+  include ../footer

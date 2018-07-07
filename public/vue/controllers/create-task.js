@@ -61,19 +61,25 @@ const vm = new Vue({
         window.axios.post('/api/task', task)
           .then(({data}) => {
             console.log(data);
+            let promiseFiles = [];
             for(let i = this.files.length - 1; i >= 0; i--) {
               let formData = new FormData();
               formData.append('file', this.files[i])
 
-              window.axios.post(
+              promiseFiles.push(window.axios.post(
                 `/api/task/file/${data.id}`, 
                 formData, 
                 { headers: { 'content-type': 'multipart/form-data' } }
-              ).then(result => {
-                console.log(result);
-              }).catch(err => console.log(err));
-
+              ));
             }
+
+            Promise.all(promiseFiles)
+              .then(values => {
+                console.table(values);
+                alert('Se guardó correctamente');
+                window.location = '/';
+              })  
+              .catch(err => console.error(err));
           })
           .catch(err => console.error(err));
       }
