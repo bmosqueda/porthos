@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
 const formidable = require("express-form-data");
+// Routers
+const indexRouter = require('./routes/index');
 
 const axios = require('axios');
 
@@ -21,6 +23,7 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use('/', indexRouter);
 
 app.get('/', (req, res) => {
   res.send('Hola mundo');

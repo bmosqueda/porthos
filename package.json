@@ -16,6 +16,7 @@
     "express-form-data": "^2.0.6",
     "express-session": "^1.15.6",
     "nodemon": "^1.17.5",
+    "package.json": "^2.0.1",
     "path": "^0.12.7",
     "pug": "^2.0.3",
     "vue": "^2.5.16"
