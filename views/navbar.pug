@@ -1,10 +1,12 @@
 script.
+  window.logged = false;
+  window.login = '';
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '157581398245135',
       cookie     : true,
       xfbml      : true,
-      version    : 'v2.8'
+      version    : 'v3.0'
     });
     FB.getLoginStatus(function(response) {
       statusChangeCallback(response);
@@ -17,14 +19,20 @@ script.
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
-nav.navbar.is-transparent
+  function logout () {
+    if (window.login = 'fb')
+      fbLogout();
+  }
+nav#navbar.navbar.is-primary
   .navbar-brand
-  #navbarExampleTransparentExample.navbar-menu
+  .navbar-menu
     .navbar-start
     .navbar-end
       .navbar-item
         .field.is-grouped
           p.control
-            fb:login-button(scope='public_profile,email', onlogin='checkLoginState();')
+            button.button.is-link.btn-login(onclick="fbLogin()") Facebok
+            button.button.is-dark#logout(onclick='logout()') Salir
+            //- fb:login-button(scope='public_profile,email', onlogin='checkLoginState();')
               span
                 | Facebook

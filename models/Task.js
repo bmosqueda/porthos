@@ -25,7 +25,6 @@ class Task extends General {
 
   getAllByUser(id) {
     let sql = `SELECT * FROM userTasks WHERE idUser = :idUser`;
-
     return this.getBySql(sql, {idUser: id});
   }
 
