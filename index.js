@@ -54,11 +54,8 @@ app.use('/bulma-tagsinput', express.static(path.join(__dirname,'/node_modules/bu
 app.use('/vuejs', express.static(path.join(__dirname, '/node_modules/vue/dist/')));
 app.use('/axios', express.static(path.join(__dirname, '/node_modules/axios/dist')));
 app.use('/CKEDITOR', express.static(path.join(__dirname, '/node_modules/@ckeditor/ckeditor5-build-classic/build')));
-<<<<<<< HEAD
 app.use('/bulma-carousel', express.static(path.join(__dirname,'/node_modules/bulma-extensions/bulma-carousel/dist')));
-=======
 app.use('/tables', express.static(path.join(__dirname, '/node_modules/vue-tables-2/dist/')))
 app.use('/fontawesome',express.static(path.join(__dirname, '/node_modules/@fortawesome/fontawesome-free/')))
->>>>>>> c65e9d10ede5b1146440b820b710a37bbfb80657
 
 app.listen(PORT);
