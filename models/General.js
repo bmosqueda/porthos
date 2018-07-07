@@ -22,21 +22,23 @@ class General {
 
   getBySql(sqlStmt, params = {}) {
     return new Promise((resolve, reject) => {
+      //Protect of sql injection
       let sql = db.prepare(sqlStmt);
+      //Excecute query
       db.query(sql(params))
         .then(rows => {
           resolve(rows);
         })
         .catch(err => {
-          reject(err);
+          reject({message: err.message, code: 500});
         });
     });
   };
 
   getById(id) {
-      let sql = `SELECT * FROM ${this.table} WHERE id = :id`;
-      
-      return this.getBySql(sql, {id: id});
+    let sql = `SELECT * FROM ${this.table} WHERE id = :id`;
+    
+    return this.getBySql(sql, {id: id});
   };
 
   getAll() {

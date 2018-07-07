@@ -1,22 +1,22 @@
-const users = require('express').Router();
-const User = require('../models/User');
-const user = new User();
+const router = require('express').Router();
+const userModel = require('../models/User');
+const User = new userModel();
 
-users.route('/')
+router.route('/')
   .post((req,res) => {
     try {
-      res.json(user.create(req.body));
+      res.json(User.create(req.body));
     } catch (err) {
-      res.status(400).json(err);
+      res.status(err.code).json({error: err.message});
     }
   })
 
-user.route('/:id')
+router.route('/:id')
   .put((req,res) => {
     try {
-      res.json(user.update(req.body, req.params.id)); // talvez podrias comparar que los id sean iguales, I dont know
+      res.json(User.update(req.body, req.params.id)); // talvez podrias comparar que los id sean iguales, I dont know
     } catch (err) {
-      res.status(400).json(err);
+      res.status(err.code).json({error: err.message});
     }
   })
 

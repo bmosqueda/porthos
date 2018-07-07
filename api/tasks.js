@@ -1,19 +1,21 @@
-const tasks = require('express').Router();
-const Task = require('../models/Task');
-const task = new Task();
+const router = require('express').Router();
+const taskModel = require('../models/Task');
+const Task = new taskModel();
 
-tasks.route('/user/:idUser')
+router.route('/user/:idUser')
   .get((req,res) => {
-    res.json(task.getAllByUser(req.params.idUser));
+    res.json(Task.getAllByUser(req.params.idUser));
   })
   .post((req,res) => {
     try {
-      task.create(req.body, req.params.idUser);
+      Task.create(req.body, req.params.idUser);
     } catch (err) {
       res.status(400).json(err);
     }
   })
 
 // id: id Task
-tasks.route(':id/files')
-  .get
+router.route(':id/files')
+  .get((req, res) => {
+    res.send('Hola mundo');
+  });
