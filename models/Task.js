@@ -89,7 +89,7 @@ class Task extends General {
   getByIdAllInfo(id) {
     if(id) {
       let sql = 
-        `SELECT ${this.table}.*, users.name, users.email FROM ${this.table} 
+        `SELECT ${this.table}.*, users.name AS author, users.email FROM ${this.table} 
         INNER JOIN users ON ${this.table}.idAuthor = users.id
         WHERE ${this.table}.id = :id`;
 
@@ -180,6 +180,11 @@ class Task extends General {
     let sql = `SELECT COUNT(*) FROM ${this.table} WHERE idAuthor = :idUser AND id = :idTask`;
 
     return this.getBySql(sql, {idUser: id, idTask: idTask});
+  }
+
+  getAllUserTask(task, user) {
+    const sql = `SELECT name, isOfAuthor FROM taskFiles WHERE idAuthor = :user AND idTask = :task`
+    return this.getBySql(sql, {user: user, task: task});
   }
 }
   

@@ -5,11 +5,18 @@ function statusChangeCallback(response) {
     console.log(response)
     window.logged = true;
     window.login = 'fb';
-    for (let i = 0, j = btns.length; i < j; i++)
-      btns[i].style.visibility = 'hidden';
-    document.getElementById('logout').style.visibility = 'visible';
-    FB.api('/me', {fields: 'id,name,email,picture'}, function(response) {
-      console.log(response);
+    FB.api('/me', {fields: 'id,name,email,picture'}, function(user) {
+      console.log(user);
+      window.axios.post(`/session/fb/${response.authResponse}`, user)
+        .then(res => {
+          for (let i = 0, j = btns.length; i < j; i++)
+            btns[i].style.visibility = 'hidden';
+          document.getElementById('logout').style.visibility = 'visible';
+        })
+        .catch(err => {
+          alert('Something failed')
+          console.error(err)
+        })
     });
   } else {
     for (let i = 0, j = btns.length; i < j; i++)

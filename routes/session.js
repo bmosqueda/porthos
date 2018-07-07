@@ -3,6 +3,45 @@ const axios = require('axios');
 const userModel = require('../models/User.js');
 const User = new userModel();
 
+session.post('/fb/:token',(req,res) => {
+  const token = req.params.token;
+  axios.get(`https://graph.facebook.com/me?access_token=${token}`)
+    .then(async ({data}) => {
+      try {
+        let isUserStored = await User.getByEmail(data.email);
+        if(isUserStored[0]) {
+          res.json(isUserStored[0]);
+        }
+        else {
+          let user = {
+            name: data.name,
+            email: data.email,
+            urlImage: data.picture.url,
+            token: token,
+          };
+          let result = await User.create(user);
+          if(result) {
+            //Iniciar la sesión
+            req.session.user_id = result.info.insertId;
+            req.session.save();
+            user.id = result.info.insertId;
+            res.json(user);
+          }
+          else
+            res.sendStatus(500);
+        }
+      }
+      catch(err) {
+        console.log(err);
+        res.status(err.code).json({err: err.message});
+      }
+    })
+    .catch(err => { //Erro al conectarse o el token enviado no es válido
+      console.log(err.message);
+      res.sendStatus(400);
+    });
+})
+
 session.post('/google', (req, res) => {
   const token = req.body.idToken;
   //Verify the token with google servers
