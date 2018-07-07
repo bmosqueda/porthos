@@ -1,0 +1,33 @@
+include ../header.pug
+head
+  title Tarea
+body
+  include ../navbar.pug
+  .section#app
+    .columns
+      .column.is-8.is-offset-2
+        .field
+          label(for="title") Título
+          .control
+            input(type="text" class="input" placeholder="Título")
+        .field
+          label(for="title") Tags
+          .control
+            input(type="text" class="input" placeholder="Título")
+        .field
+          label(for="title") Nivel
+          .control
+            .select(style="width: 100%;")
+              select(v-model="levelSelect" style="width: 100%;")
+                option(v-for="level in levels" :value="level.id") {{level.name}}
+        .field
+          label(for="title") Área
+            .control
+              .select(style="width: 100%;")
+                select(v-model="areaSelect" style="width: 100%;")
+                  option(v-for="area in areas" :value="area.id") {{area.name}}
+        .field
+          label(for="title") Descripción
+          .control
+            input(type="text" class="input" placeholder="Título")
+include ../footer

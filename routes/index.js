@@ -1,10 +1,18 @@
 const router = require('express').Router();
 const api = require('../api');
 const session = require('./session.js');
+const task = require('./task.js');
 const Task = require('../models/Task');
+const sessionMiddleware = require('../session-middleware');
 
 router.use('/api', api);
 router.use('/session', session);
+router.use('/task', task);
+
+router.use('/api', sessionMiddleware);
+router.use('/session', sessionMiddleware);
+router.use('/task', sessionMiddleware);
+router.use('/home', sessionMiddleware);
 
 router.route('/home')
   .get((req,res) => {

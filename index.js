@@ -5,7 +5,6 @@ const path = require('path');
 const session = require('express-session');
 const axios = require('axios');
 const PORT = process.env.PORT || 3000;
-const sessionMiddleware = require('./session-middleware');
 global.PATH = path.resolve(__dirname);
 
 // Routers
@@ -28,9 +27,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-
 app.use('/', indexRouter);
-app.use('/', sessionMiddleware);
 
 app.get('/', async (req, res) => {
   let users = await User.getAll();
