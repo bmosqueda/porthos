@@ -1,5 +1,6 @@
+script(src="/js/fb.js")
+script(src="/js/google.js")
 script.
-  window.logged = false;
   window.login = '';
   window.fbAsyncInit = function() {
     FB.init({
@@ -8,9 +9,11 @@ script.
       xfbml      : true,
       version    : 'v3.0'
     });
+    /*
     FB.getLoginStatus(function(response) {
       statusChangeCallback(response);
     });
+    */
   };
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -25,7 +28,6 @@ script.
     else 
       signOut();
   }
-script(src="/js/google.js")
 nav#navbar.navbar.is-primary
   .navbar-brand
   .navbar-menu
@@ -34,9 +36,12 @@ nav#navbar.navbar.is-primary
       .navbar-item
         .field.is-grouped
           p.control
-            button.button.is-link.btn-login(onclick="fbLogin()") Facebok
-            div.btn-login(class="g-signin2" data-onsuccess="onSignIn")
-            button.button.is-dark#logout(onclick='logout()') Salir
+            .btn-login
+              button.button.is-link(onclick="fbLogin()") Facebok
+              button.button.is-danger(onclick="document.getElementId('googleLogin').click()") Google
+            #googleLogin.btn-login(class="g-signin2" data-onsuccess="onSignIn" hidden)
+            #logout(hidden)
+              button.button.is-dark(onclick='logout()') Salir
             //- fb:login-button(scope='public_profile,email', onlogin='checkLoginState();')
               span
                 | Facebook

@@ -5,53 +5,21 @@ include header.pug
     include navbar.pug
     .section
       .container
-      if(tasks)
-        each task in tasks
-          article.media
-            figure.media-left
-              p.image.is-64x64
-                img(src='https://bulma.io/images/placeholders/128x128.png')
-            .media-content
-              .content
-                p
-                  strong #{task.name}
-                  small #{task.email}
-                  br
-                  | #{task.description}
-              nav.level.is-mobile
-                .level-left
-                  a.level-item
-                    span.icon.is-small
-                      i.fas.fa-reply
-                  a.level-item
-                    span.icon.is-small
-                      i.fas.fa-retweet
-                  a.level-item
-                    span.icon.is-small
-                      i.fas.fa-heart
+        if(tasks)
+          each task in tasks
+            article.media
+              figure.media-left
+                p.image.is-64x64
+                  img(src='https://bulma.io/images/placeholders/128x128.png')
+              .media-content
+                .content
+                  p
+                    strong #{task.name}
+                    small #{task.email}
+                    br
+                    | #{task.description}
             .media-right
               button.delete
-    p#status
-                  br
-                  |
-                  small #{task.email}
-                  br
-                  | #{task.description}
-            nav.level.is-mobile
-              .level-left
-                a.level-item
-                  span.icon.is-small
-                    i.fas.fa-reply
-                a.level-item
-                  span.icon.is-small
-                    i.fas.fa-retweet
-                a.level-item
-                  span.icon.is-small
-                    i.fas.fa-heart
-          .media-right
-            button.delete
-        p#status
     include footer.pug
-script(src="/js/fb.js")
 script(src="/js/axios.min.js")
 script(src="/js/home.js")
