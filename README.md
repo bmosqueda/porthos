@@ -12,6 +12,9 @@ Lo anterior se elaborará con ayuda de lenguajes de programación como Javascrip
 
 Integrantes:
 saryrules@gmail.com
+
 bmosqueda@ucol.mx
+
 crodriguez20@ucol.mx
+
 saloewe@hotmail.com 
