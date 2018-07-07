@@ -31,7 +31,6 @@ class Task extends General {
 
   validate() {
     let props = ['idSchoolLevel', 'title', 'school', 'idArea', 'description'];
-    let error = false;
     for (var i = props.length - 1; i >= 0; i--)
       if(user[props[i]] == null)
         return false;
@@ -65,6 +64,28 @@ class Task extends General {
       else
         reject({message: 'Required paramether not defined', code: 400});
     });
+  }
+
+  //**************File section
+  validateFile() {
+    let props = ['name', 'idTask', 'idAuthor', 'isOfAuthor'];
+    for (var i = props.length - 1; i >= 0; i--)
+      if(user[props[i]] == null)
+        return false;
+
+    return true;
+  }
+
+  saveFile() {
+    if(validateFile()) {
+      let sql =  
+        `INSERT INTO taskFiles (name, idTask, idAuthor, isOfAuthor) 
+        VALUES(:name, :idTask, :idAuthor, :isOfAuthor)`;
+
+      return this.getBySql(sql, {idUser: id});
+    }
+    else
+      throw {message: 'Required paramether not defined', code: 400};
   }
 }
   

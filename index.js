@@ -11,6 +11,9 @@ const axios = require('axios');
 const userModel = require('./models/User.js');
 const User = new userModel();
 
+const generalModel = require('./models/User.js');
+const General = new generalModel();
+
 const PORT = process.env.PORT || 3000;
 
 app.set("view engine", "pug");
@@ -27,8 +30,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', async (req, res) => {
   // let users = await knex('users').select('*');
-  let users = await User.getAll();
-  res.json(users);
+  // let users = await User.getAll();
+  let areas = await General.getBySql('SELECT * FROM areas');
+  res.json(areas);
 });
 
 app.use(express.static(path.join(__dirname,'/public')));
