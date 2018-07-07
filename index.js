@@ -5,6 +5,8 @@ const path = require('path');
 const session = require('express-session');
 const axios = require('axios');
 const PORT = process.env.PORT || 3000;
+global.PATH = path.resolve(__dirname);
+
 // Routers
 const indexRouter = require('./routes/index');
 

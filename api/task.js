@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const formidable = require("express-form-data");
-const mv = require('mv')
+const mv = require('mv');
+const path = require('path');
 
 const taskModel = require('../models/Task');
 const Task = new taskModel();
@@ -66,44 +67,40 @@ router.route('/comment/user/:idUser/task/:idTask')
   });
 
 // id: id Task
-router.route('/file/task/:idTask')
+router.route('/file/:idTask/user/:idAuthor')
   .post(async (req, res) => {
-      //Save the file in our public folder
-      console.log(req.files.file.size);
+    if(req.files.file.size <= 10000) {
       let extension = req.files.file.name.split(".").pop();
       let now = (new Date()).toISOString();
+      let name = `${now}_${req.params.idTask}.${extension}`;
       // let isOfAuthor = await Task.isOfAuthor(idTask, idUser);
       let isOfAuthor = 1;
 
       let file = {
-        name: `${now}_${idTask}.${extension}`,
+        name: name,
         idTask: req.params.idTask,
         idAuthor: req.params.idAuthor,
         isOfAuthor: isOfAuthor
       };
-      console.log(path.join(path.resolve(__dirname),`public/files/${name}`));
-      mv(req.files.file.path, 
-        path.join(path.resolve(__dirname),`public/files/${name}`), 
-        async (err) => {
-          if(err) {
-            console.error(err.message);
-            res.status(500).json(err);
-          }
-          else {
-            console.log('else');
 
-            try {
-              console.log(file);
-              let result = await Task.saveFile(file);
-              file.id = result.info.insertId;
-              res.status(201).json(file);
-            }
-            catch(err) {
-              res.status(err.code).json({error: err.message});
-            }
+      //Save the file in our public folder
+      mv(req.files.file.path, path.join(PATH,`public/files/${name}`), async (err) => {
+        if(err) {
+          console.error(err.message);
+          res.status(500).json(err);
+        }
+        else {
+          try {
+            let result = await Task.saveFile(file);
+            file.id = result.info.insertId;
+            res.status(201).json(file);
           }
-        });
-    // res.send('Hola mundo');
+          catch(err) {
+            res.status(err.code).json({error: err.message});
+          }
+        }
+      });
+    }
   });
 
 module.exports = router;
