@@ -8,8 +8,8 @@ const General = require('./General.js');
   | email    | varchar(100) | NO   |     | NULL    |                |
   | urlImage | varchar(500) | YES  |     | NULL    |                |
   | token    | varchar(700) | NO   |     | NULL    |                |
-  | school   | varchar(100) | NO   |     | NULL    |                |
-  | idArea   | int(11)      | NO   |     | NULL    |                |
+  | school   | varchar(100) | YES  |     | NULL    |                |
+  | idArea   | int(11)      | YES  |     | NULL    |                |
   | info     | varchar(750) | YES  |     | NULL    |                |
   +----------+--------------+------+-----+---------+----------------+
 */
@@ -21,7 +21,7 @@ class User extends General {
   }
 
   validate(user) {
-    let props = ['name', 'email', 'school', 'idArea', 'info'];
+    let props = ['name', 'email', 'token'];
     let error = false;
     for (var i = props.length - 1; i >= 0; i--)
       if(user[props[i]] == null)
@@ -31,7 +31,7 @@ class User extends General {
   }
 
   create(user) {
-    if(validate(user)) {
+    if(this.validate(user)) {
       let sql = 
         `INSERT INTO ${this.table} 
         (name, email, ${user.urlImage ? 'urlImage' : ''}, ${user.token ? 'token' : ''}, school, idArea, info)
@@ -44,7 +44,7 @@ class User extends General {
   }
 
   update(user, id) {
-    if(validate(user) && id) {
+    if(this.validate(user) && id) {
       let sql = 
         `UPDATE ${this.table} SET 
         name = :name, email = :email, ${user.urlImage ? 'urlImage = :urlImage' : ''}, 
@@ -53,6 +53,16 @@ class User extends General {
 
       user.id = id;
       return this.getBySql(sql, user);
+    }
+    else
+      throw {message: 'Required paramether not defined', code: 400};
+  }
+
+  getByEmail(email) {
+    if(email) {
+      let sql = `SELECT * FROM users WHERE email = :email`;
+
+      return this.getBySql(sql, {email: email});
     }
     else
       throw {message: 'Required paramether not defined', code: 400};

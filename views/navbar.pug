@@ -20,9 +20,12 @@ script.
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
   function logout () {
-    if (window.login = 'fb')
+    if (window.login == 'fb')
       fbLogout();
+    else 
+      signOut();
   }
+script(src="/js/google.js")
 nav#navbar.navbar.is-primary
   .navbar-brand
   .navbar-menu
@@ -32,6 +35,7 @@ nav#navbar.navbar.is-primary
         .field.is-grouped
           p.control
             button.button.is-link.btn-login(onclick="fbLogin()") Facebok
+            div.btn-login(class="g-signin2" data-onsuccess="onSignIn")
             button.button.is-dark#logout(onclick='logout()') Salir
             //- fb:login-button(scope='public_profile,email', onlogin='checkLoginState();')
               span

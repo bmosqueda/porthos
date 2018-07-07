@@ -7,10 +7,10 @@ function statusChangeCallback(response) {
     for (let i = 0, j = btns.length; i < j; i++)
       btns[i].style.visibility = 'hidden';
       document.getElementById('logout').style.visibility = 'visible';
-    } else {
-      document.getElementById('logout').style.visibility = 'hidden';
-      document.getElementById('status').innerHTML = 'Please log ' +
-      'into this app.';
+  } else {
+    document.getElementById('logout').style.visibility = 'hidden';
+    document.getElementById('status').innerHTML = 'Please log ' +
+    'into this app.';
   }
 }
 
