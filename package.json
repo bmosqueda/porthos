@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^10.1.0",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "bulma": "^0.7.1",

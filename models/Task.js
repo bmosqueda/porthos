@@ -86,6 +86,19 @@ class Task extends General {
       throw {message: 'Required paramether not defined', code: 400};
   }
 
+  getByIdAllInfo(id) {
+    if(id) {
+      let sql = 
+        `SELECT ${this.table}.*, users.name, users.email FROM ${this.table} 
+        INNER JOIN users ON ${this.table}.idAuthor = users.id
+        WHERE ${this.table}.id = :id`;
+
+      return this.getBySql(sql, {id: id});
+    }
+    else
+      throw {message: 'Required paramether not defined', code: 400};
+  }
+
   //**************Comments
 /*
   +----------+----------------+------+-----+---------+----------------+
@@ -129,6 +142,8 @@ class Task extends General {
 
     return this.getBySql(sql, {idTask: id});
   }
+
+
   //**************File section
 /*
   +------------+--------------+------+-----+---------+----------------+

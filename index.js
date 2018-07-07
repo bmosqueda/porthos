@@ -53,5 +53,6 @@ app.use('/bulma', express.static(path.join(__dirname,'/node_modules/bulma/css'))
 app.use('/bulma-tagsinput', express.static(path.join(__dirname,'/node_modules/bulma-tagsinput/dist')));
 app.use('/vue', express.static(path.join(__dirname, '/node_modules/vue/dist/')));
 app.use('/axios', express.static(path.join(__dirname, '/node_modules/axios/dist')));
+app.use('/CKEDITOR', express.static(path.join(__dirname, '/node_modules/@ckeditor/ckeditor5-build-classic/build')));
 
 app.listen(PORT);

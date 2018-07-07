@@ -33,6 +33,9 @@ body
           .control
             input(type="text" class="input" placeholder="Título")
         .field
-          input(type="button" class="control" placeholder="Título")
+          .control
+            button(class="button is-success") Guardar
+        textarea(name="content" id="editor")
+  script(src="/CKEDITOR/ckeditor.js")
   script(src="/vue/controllers/create-task.js")            
 include ../footer
