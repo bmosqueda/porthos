@@ -17,6 +17,14 @@ const vm = new Vue({
     get(id){
       return document.getElementById(id);
     },
+    selectedLevel: function() {
+      window.axios.get(`/api/catalog/areas/level/${this.levelSelect}`)
+        .then(({data}) => { 
+          this.areas = data;  
+          this.areaSelect = -1;
+        })
+        .catch(err => console.log(err));
+    },
     newFile() {
       let file = this.get('fileInput').files[0];
       if(file.size <= 10485760) {
@@ -48,7 +56,7 @@ const vm = new Vue({
           description: CKeditor.getData() 
         }
 
-        window.axios.post('/api/task', task)
+        window.axios.put(`/api/task/${idTask}`, task)
           .then(({data}) => {
             console.log(data);
             let promiseFiles = [];

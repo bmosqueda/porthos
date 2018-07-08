@@ -40,7 +40,7 @@ const vm = new Vue({
       else {
         alert('Demasiado grande el archivo');
       }
-    },
+    }, 
     discardFile(ev) {
       this.files.splice(ev.target.value, 1);
     },
@@ -86,10 +86,18 @@ const vm = new Vue({
       else {
         alert('Faltan campos requeridos');
       }
+    },
+    selectedLevel: function() {
+      window.axios.get(`/api/catalog/areas/level/${this.levelSelect}`)
+        .then(({data}) => { 
+          this.areas = data;  
+          this.areaSelect = -1;
+        })
+        .catch(err => console.log(err));
     }
   },
   created: function() {
-    window.axios.get('/api/catalog/areas')
+    window.axios.get('/api/catalog/areas/level/4')
       .then(({data}) => {
         this.areas = data;
       })

@@ -23,7 +23,7 @@ html(lang="en")
               label(for="title") Nivel
               .control
                 .select(style="width: 100%;")
-                  select(v-model="levelSelect" style="width: 100%;")
+                  select(v-model="levelSelect" style="width: 100%;" @change="selectedLevel")
                     option(disabled value="-1") - Selecciona un nivel - 
                     option(v-for="level in levels" :value="level.id") {{level.name}}
             .field
