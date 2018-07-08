@@ -2,7 +2,10 @@ const router = require('express').Router();
 const api = require('../api');
 const session = require('./session.js');
 const task = require('./task.js');
-const Task = require('../models/Task');
+const TaskModel = require('../models/Task');
+const UserModel = require('../models/User');
+const Task = new TaskModel();
+const User = new UserModel();
 const sessionMiddleware = require('../session-middleware');
 
 router.use('/api', sessionMiddleware);
@@ -20,21 +23,28 @@ const userEmpty = {
   urlImage:'https://www.iconspng.com/images/abstract-user-icon-3/abstract-user-icon-3.jpg'
 }
 
-router.get('/', (req, res) => {
-  const user = req.session.user_id != undefined ? req.session.user[0] : userEmpty;
-  res.render('index', { user: user });
+router.get('/', async (req, res) => {
+  try {
+    let user = await User.getById(req.session.user_id)[0];
+    res.render('index', { user: user || userEmpty });
+  } catch (err) {
+    res.render('index', { user: userEmpty });
+  }
 });
 
 router.route('/:userId')
-  .get((req,res) => {
+  .get(async (req,res) => {
     if (req.session.user_id == req.params.userId) {
-      let tasks = null;
-      new Task().getAllInfoByUser(1)
-        .then(data => {
-          const user = req.session.user_id != undefined ? req.session.user[0] : userEmpty;
-          res.render('home', { tasks: data, user: user });
-        })
-        .catch(err => res.status(500).send(err));
+      try {
+        try {
+          const user = await User.getById(req.session.user_id)[0];
+          res.render('home', { tasks: Task.getAllInfoByUser(1), user: user || userEmpty });
+        } catch (err) {
+          res.render('home', { tasks: Task.getAllInfoByUser(1), user: userEmpty });
+        }
+      } catch(err) {
+        res.status(500).send(err);
+      }
     }
   })
 
