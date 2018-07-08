@@ -4,15 +4,10 @@ function onSignIn(googleUser) {
   window.axios.post(`/session/google`, {idToken: id_token})
     .then(({data}) => {
       window.login = 'google';
-      const btns = document.getElementsByClassName('btn-login');
-      for (let i = 0, j = btns.length; i < j; i++)
-        btns[i].style.visibility = 'hidden';
-      document.getElementById('logout').style.visibility = 'visible';
+      console.log(data)
     })
     .catch(err =>  {
-      for (let i = 0, j = btns.length; i < j; i++)
-        btns[i].style.visibility = 'visible';
-      document.getElementById('logout').style.visibility = 'hidden';
+      alert('Sesion no iniciada');
       console.log(err);
     });
 }
@@ -24,11 +19,10 @@ function signOut() {
     window.axios.post(`/session/logout`)
       .then(({data}) => {
         console.log(data);
-        const btns = document.getElementsByClassName('btn-login');
-        for (let i = 0, j = btns.length; i < j; i++)
-          btns[i].style.visibility = 'visible';
-        document.getElementById('logout').style.visibility = 'hidden';
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        alert('Sesion no iniciada');
+      });
   });
 }
