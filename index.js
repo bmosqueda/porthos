@@ -66,4 +66,4 @@ app.use('/bulma-carousel', express.static(path.join(__dirname,'/node_modules/bul
 app.use('/tables', express.static(path.join(__dirname, '/node_modules/vue-tables-2/dist/')))
 app.use('/fontawesome',express.static(path.join(__dirname, '/node_modules/@fortawesome/fontawesome-free/')))
 
-app.listen(PORT);
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
