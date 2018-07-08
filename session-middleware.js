@@ -5,7 +5,7 @@ module.exports = async function(req, res, next) {
   const userEmpty = {
     id: '',
     name: '',
-    urlImage:'https://www.iconspng.com/images/abstract-user-icon-3/abstract-user-icon-3.jpg'
+    urlImage:'/content/user.jpg'
   };
   console.log('Session middleware');
   if(!req.session.user_id) {
