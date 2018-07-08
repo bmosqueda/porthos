@@ -20,7 +20,7 @@ router.use('/task', task);
 const userEmpty = {
   id: '',
   name: '',
-  urlImage:'https://www.iconspng.com/images/abstract-user-icon-3/abstract-user-icon-3.jpg'
+  urlImage:'/content/user.jpg'
 }
 
 router.get('/', async (req, res) => {

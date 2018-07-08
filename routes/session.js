@@ -5,6 +5,9 @@ const User = new userModel();
 
 session.post('/fb/:token',(req,res) => {
   const token = req.params.token;
+  console.log(token)
+  url = `https://graph.facebook.com/me?access_token=${token}`
+  console.log(url)
   axios.get(`https://graph.facebook.com/me?access_token=${token}`)
     .then(async ({data}) => {
       try {
@@ -38,7 +41,7 @@ session.post('/fb/:token',(req,res) => {
         res.status(err.code).json({err: err.message});
       }
     })
-    .catch(err => { //Erro al conectarse o el token enviado no es válido
+    .catch(err => { //Error al conectarse o el token enviado no es válido
       console.log(err.message);
       res.sendStatus(400);
     });
