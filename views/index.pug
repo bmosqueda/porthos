@@ -2,76 +2,37 @@ doctype html
 html(lang="en")
   head
     include header.pug
-    title Tarea
-    script(type="text/javascript" src="/bulma-carousel/js/bulma-carousel.js")
-    link(rel='stylesheet', href="/bulma-carousel/css/bulma-carousel.min.css")
+    title Porthos
   body
     include navbar.pug
-    .carousel.carousel-animated.carousel-animate-slide
-      .carousel-container
-        .carousel-item.has-background.is-active
-          img.is-background(src='https://wikiki.github.io/images/merry-christmas.jpg', alt='', width='640', height='310')
-          .title Merry Christmas
-        .carousel-item.has-background
-          img.is-background(src='https://wikiki.github.io/images/singer.jpg', alt='', width='640', height='310')
-          .title
-            | Original Gift: Offer a song with 
-            a(href='https://lasongbox.com', target='_blank') La Song Box
-        .carousel-item.has-background
-          img.is-background(src='https://wikiki.github.io/images/sushi.jpg', alt='', width='640', height='310')
-          .title Sushi time
-        .carousel-item.has-background
-          img.is-background(src='https://wikiki.github.io/images/life.jpg', alt='', width='640', height='310')
-          .title Life
-      .carousel-navigation.is-centered
-        .carousel-nav-left
-
-    section.hero.is-medium.has-carousel
-      .hero-carousel.carousel-animated.carousel-animate-fade(data-autoplay="true")
-        .carousel-container
-          .carousel-item.has-background.is-active
-            .columns
-              .column.is-7
-                figure.image.is-square
-                  img.is-background(src=pathToRoot + "images/image1.jpg")
-              .column.is-5
-                p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-          .carousel-item.has-background.is-active
-            .columns
-              .column.is-7
-                figure.image.is-square
-                  img.is-background(src=pathToRoot + "images/image1.jpg")
-              .column.is-5
-                p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.      
-          .carousel-item.has-background.is-active
-            .columns
-              .column.is-7
-                figure.image.is-square
-                  img.is-background(src=pathToRoot + "images/image1.jpg")
-              .column.is-5
-                p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-          .carousel-item.has-background.is-active
-            .columns
-              .column.is-7
-                figure.image.is-square
-                  img.is-background(src=pathToRoot + "images/image1.jpg")
-              .column.is-5
-                p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        .carousel-navigation.is-overlay
-          .carousel-nav-left
-            i.fa.fa-chevron-left(aria-hidden="true")
-          .carousel-nav-right
-            i.fa.fa-chevron-right(aria-hidden="true")
-      .hero-body.has-text-centered
-        h1 JustBlocks 
-        .columns.is-mobile.is-centered
-          .column.is-half.is-narrow
-            .field.has-addons.has-icons-left
-              .control.is-expanded.has-icons-left
-    .section#main
-      .columns
-        .column.is-4(style="border: 1px solid #333")
-          h1 Index
-        .column.is-8
-          h1 Index
+    .section#app
+      .columns.is-centered
+        .column.is-three-fifths
+          h1.title.is-2 Porthos
+          h1.subtitle.is-5.has-text-justified Te encuentras en una plataforma que pretende ser el medio por el cual enriquecer trabajos, investigaciones y todo tipo de proyectos através de la opinión y aportación de la comunidad.
+          h1.subtitle.is-5.has-text-right "Todos para uno y uno para todos" 
+          h1.subtitle.is-6.has-text-right  - Alejandro Dumas -
+          .hero-body.has-text-centered
+            h1.subtitle.is-6 Únete, no seas culo :v
+            .columns.is-mobile.is-centered
+              .column
+                .field.has-addons.has-icons-left
+                  .control.is-expanded.has-icons-left
+                    input#txtSearch.input.is-primary(type="text" 
+                      placeholder="Encontrar trabajos, tareas, proyectos..." autofocus v-model="searchText")
+                    span.icon.is-small.is-left
+                      i.fa.fa-search
+                  .control
+                    button#search.button.is-success(@click="search") Buscar
+            h1.subtitle.is-5 Niveles de estudio
+            .control.has-text-centered(style="padding-left: 35px;")
+              label(class="radio" v-for="level in levels" class="subtitle is-6") 
+                input(type="radio" name="level" :value="level.id")
+                span(style="padding-right:30px;") {{level.name}} 
+            h1.subtitle.is-5(style="padding-left: 50px;") Áreas
+            .columns.has-text-left
+              .column.is-offset-2.is-6#area      
+              .column.is-6#area2
+            
+    script(src="/vue/controllers/index.js")
   include footer.pug
