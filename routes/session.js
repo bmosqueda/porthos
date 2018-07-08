@@ -5,9 +5,7 @@ const User = new userModel();
 
 session.post('/fb/:token',(req,res) => {
   const token = req.params.token;
-  console.log(token)
   url = `https://graph.facebook.com/me?access_token=${token}`
-  console.log(url)
   axios.get(`https://graph.facebook.com/me?access_token=${token}`)
     .then(async ({data}) => {
       try {
