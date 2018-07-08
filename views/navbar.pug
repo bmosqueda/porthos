@@ -17,6 +17,7 @@ script.
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
+  
   function logout () {
     if (window.login == 'fb')
       fbLogout();
@@ -24,16 +25,46 @@ script.
       signOut();
   }
 nav#navbar.navbar.is-primary
-  .navbar-brand
-  .navbar-menu
-    .navbar-start
-    .navbar-end
-      .navbar-item
-        .field.is-grouped
-          p.control.btn-login
-            button.button.is-link(onclick="fbLogin()") Facebok
-              //- button.button.is-danger(onclick="document.getElementsByClassName('g-signin2')[0].click()") Google
-          p.control
-            .btn-login(class="g-signin2" data-onsuccess="onSignIn")
-          p.control#logout(style="visibility: hidden")
-              button.button.is-dark(onclick='logout()') Salir
+  .container.column.is-three-fifths
+    .navbar-brand
+      a.navbar-item(href='/')
+        img(src='/files/logo.png', alt='Porthos', width='112', height='28')
+      a.navbar-burger(role='button', aria-label='menu', aria-expanded='false' @click='activeBurger = !activeBurger')
+        span(aria-hidden='true')
+        span(aria-hidden='true')
+        span(aria-hidden='true')
+    .navbar-menu(:class="{ 'is-active': activeBurger }")
+      .navbar-start
+        a.navbar-item Home
+      .navbar-end
+        .navbar-item(@click='activeModal = !activeModal') Login
+        //- .navbar-item(onclick='logout()') Login
+  .modal.is-small(:class="{ 'is-active': activeModal }")
+    .modal-background
+    .modal-content
+      .modal-card
+        .box
+          .columns.is-centered
+            .column.is-half.has-text-centered
+              figure.image.is-64x64(style="margin: auto")
+                img(src='/files/porthos3.png')
+              br
+              h2.subtitle Inicia sesi&oacute;n en Porthos
+              .field.is-grouped
+                p.control.btn-login
+                  button.button.is-link(onclick="fbLogin()")
+                    span.is-icon.is-medium
+                      i.fab.fa-facebook
+                    span &nbsp;Facebook
+
+                p.control
+                  .btn-login(class="g-signin2" data-onsuccess="onSignIn")
+        button.modal-close.is-large(aria-label='close' @click='activeModal = !activeModal')
+script.
+  var v = new Vue({
+    el:'#navbar',
+    data: {
+      activeBurger: false,
+      activeModal: false,
+    }
+  })
