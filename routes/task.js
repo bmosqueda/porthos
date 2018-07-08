@@ -27,7 +27,15 @@ router.get('/view/:id', (req, res) => {
         Task.getAllUserTask(req.params.id, task[0].idAuthor)
         .then(files => {
           task[0].files = files;
-          res.render('task/view', {task: task[0]});
+          Task.getAllCommentsByTask(req.params.id)
+            .then(comments => {
+              task[0].comments = comments;
+              res.render('task/view', {task: task[0]});
+            })
+            .catch (() => { 
+              task[0].comments = []
+              res.render('task/view', {task: task[0]});
+            })
         })
         .catch(err => {
           res.status(500).json({err: err.message});

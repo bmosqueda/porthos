@@ -159,7 +159,9 @@ class Task extends General {
   }
 
   getAllCommentsByTask(id) {
-    let sql = `SELECT * FROM comments WHERE idTask = :idTask`;
+    // let sql = `SELECT * FROM comments WHERE idTask = :idTask`;
+    let sql = `SELECT comments.*, users.name AS userName, users.urlImage, users.email FROM comments
+     INNER JOIN users ON comments.idAuthor = users.id WHERE comments.idTask = :idTask`;
 
     return this.getBySql(sql, {idTask: id});
   }
