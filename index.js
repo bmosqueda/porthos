@@ -27,13 +27,57 @@ app.use(session({
     saveUninitialized: true
 }));
 
-/*app.get('/', (req, res) => {
+app.get('/1', (req, res) => {
+  let carreras = ['Historia', 'Español', 'Geografía', 'Matemáticas', 'Inglés']
+  for (var i = carreras.length - 1; i >= 0; i--) {
+    let sql = "INSERT INTO areas (name, idSchoolLevel) VALUES(:carrera, 1)";
+    General.getBySql(sql, {carrera: carreras[i]});
+  }
+  res.send('1');
+});
+
+app.get('/2', (req, res) => {
+  let carreras = ['Historia', 'Español', 'Álgebra', 'Inglés', 'Computación', 'Ciencias naturales']
+  for (var i = carreras.length - 1; i >= 0; i--) {
+    let sql = "INSERT INTO areas (name, idSchoolLevel) VALUES(:carrera, 2)";
+    General.getBySql(sql, {carrera: carreras[i]});
+  }
+  res.send('2');
+});
+
+app.get('/3', (req, res) => {
   let carreras = ['Literatura', 'Ética', 'Trigonometrá', 'Química', 'Historia'];
   for (var i = carreras.length - 1; i >= 0; i--) {
     let sql = "INSERT INTO areas (name, idSchoolLevel) VALUES(:carrera, 3)";
     General.getBySql(sql, {carrera: carreras[i]});
   }
-});*/
+  res.send('3');
+});
+
+app.get('/4', (req, res) => {
+  let carreras = [
+    "Ingeniería de software",
+    "Arquitectura",
+    "Diseño gráfico",
+    "Contaduría",
+    "Psicología",
+    "Ingeniería en sistemas computacionales",
+    "Filosofía",
+    "Trabajo social",
+    "Turismo",
+    "Enfermería",
+    "Nutrición",
+    "Biología",
+    "Física",
+    "Derecho",
+    "Economía"
+  ];
+  for (var i = carreras.length - 1; i >= 0; i--) {
+    let sql = "INSERT INTO areas (name, idSchoolLevel) VALUES(:carrera, 4)";
+    General.getBySql(sql, {carrera: carreras[i]});
+  }
+  res.send('4');
+});
 
 app.use('/', indexRouter);
 
