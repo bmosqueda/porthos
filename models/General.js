@@ -7,12 +7,19 @@ if(process.env.JAWSDB_URL) {
 } 
 else {
   db.connect({
+    host: 'thzz882efnak0xod.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    user: 'o8gcb27pfzzgu21n',
+    password: 'dk3ya30sw4pmir41',
+    db: 'h9jzmj69n1cyyoga'
+  }).then(() => {console.log("Conectado")})
+    .catch((err) => {console.error("Error: ", err)});
+  /*db.connect({
     host: '127.0.0.1',
     user: 'porthos',
     password: 'ninguna',
     db: 'porthosDB'
   }).then(() => {console.log("Conectado")})
-    .catch((err) => {console.error("Error: ", err)});
+    .catch((err) => {console.error("Error: ", err)});*/
 }
 
 class General {
