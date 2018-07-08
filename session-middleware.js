@@ -2,13 +2,23 @@ const userModel = require('./models/User.js');
 const User = new userModel();
 
 module.exports = async function(req, res, next) {
+  const userEmpty = {
+    id: '',
+    name: '',
+    urlImage:'https://www.iconspng.com/images/abstract-user-icon-3/abstract-user-icon-3.jpg'
+  };
   console.log('Session middleware');
   if(!req.session.user_id) {
+    console.log('no loggueado');
+    res.locals = {user: userEmpty};
     next();
   }
   else {
+    console.log('loggueado');
     try {
       req.session.user = await User.getById(req.session.user_id);
+      
+      res.locals = {user: req.session.user[0]};
       next();
     }
     catch(err) {

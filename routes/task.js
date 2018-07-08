@@ -27,16 +27,7 @@ router.get('/view/:id', (req, res) => {
         Task.getAllUserTask(req.params.id, task[0].idAuthor)
         .then(files => {
           task[0].files = files;
-          console.log(task);
-          console.log(req.session.user_id)
-          console.log(req.session.user)
-          const userEmpty = {
-            id: '',
-            name: '',
-            urlImage:'https://www.iconspng.com/images/abstract-user-icon-3/abstract-user-icon-3.jpg'
-          }
-          const user = req.session.user_id != undefined ? req.session.user[0] : userEmpty;
-          res.render('task/view', { task: task[0], user: user });
+          res.render('task/view', {task: task[0]});
         })
         .catch(err => {
           res.status(500).json({err: err.message});
