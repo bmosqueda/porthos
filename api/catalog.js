@@ -14,6 +14,18 @@ router.get('/areas', async (req, res) => {
   }
 });
 
+router.get('/areas/level/:idLevel', async (req, res) => {
+  try { 
+    let areas = await Catalog.getBySchoolLevel(req.params.idLevel);
+
+    res.json(areas);
+  }
+  catch(err) {
+    console.log(err);
+    res.status(err.code).json({error: err.message});
+  }
+});
+
 router.get('/levels', async (req, res) => {
   try { 
     let levels = await Catalog.getAllByTable('schoolLevel');

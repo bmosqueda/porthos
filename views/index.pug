@@ -23,16 +23,17 @@ html(lang="en")
                     span.icon.is-small.is-left
                       i.fa.fa-search
                   .control
-                    button#search.button.is-success(@click="search") Buscar
+                    button#search.button.is-primary(@click="search") Buscar
             h1.subtitle.is-5 Niveles de estudio
             .control.has-text-centered(style="padding-left: 35px;")
               label(class="radio" v-for="level in levels" class="subtitle is-6") 
-                input(type="radio" name="level" :value="level.id")
-                span(style="padding-right:30px;") {{level.name}} 
+                input(type="radio" name="level" :value="level.id" v-model="selectedLevel")
+                span(style="padding-right:30px;") &nbsp;&nbsp;{{level.name}} 
             h1.subtitle.is-5(style="padding-left: 50px;") Áreas
             .columns.has-text-left
               .column.is-offset-2.is-6#area      
               .column.is-6#area2
+            button(class="button is-primary" id="btnSearchLevel" @click="searchByLevel") Buscar por área
             
     script(src="/vue/controllers/index.js")
   include footer.pug

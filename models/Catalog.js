@@ -3,7 +3,7 @@ const General = require('./General.js');
 class Catalog extends General {
   //All methods call getBySql defined on General model
   constructor(){
-    super('');
+    super(''); 
   }
 
 /*
@@ -25,9 +25,13 @@ class Catalog extends General {
   +---------------+--------------+------+-----+---------+----------------+
 */
   getBySchoolLevel(idSchoolLevel) {
-    let sql = `SELECT * FROM areas WHERE idSchoolLevel = :idLevel`;
+    if(idSchoolLevel) {
+      let sql = `SELECT * FROM areas WHERE idSchoolLevel = :idSchoolLevel`;
 
-    return this.getBySql(sql, {idLevel: idSchoolLevel});
+      return this.getBySql(sql, {idSchoolLevel: idSchoolLevel});
+    }
+    else
+      throw {code: 400, message: 'idSchoolLevel not defined'};
   }
 }
 
