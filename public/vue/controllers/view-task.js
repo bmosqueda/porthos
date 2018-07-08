@@ -33,7 +33,7 @@ const vm = new Vue({
   methods: {
     postComment () {
       if (this.user.id != '') {
-        window.axios.post(`/task/comment/user/${this.user.id}/task/${task}`, {comment: this.comment})
+        window.axios.post(`/api/task/comment/user/${this.user.id}/task/${task}`, {comment: this.comment})
           .then(() => window.location.reload())
           .catch(err => {
             console.log(err.message);

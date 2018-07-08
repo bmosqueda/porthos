@@ -134,7 +134,7 @@ class Task extends General {
   saveComment(content, idUser, idTask) {
     if(content && idUser && idTask) {
       let sql = 
-        `INSERT INTO comments (idTask, idUser, content)
+        `INSERT INTO comments (idTask, idAuthor, content)
         VALUES(:idTask, :idUser, :content)`;
       let comment = {
         idUser: idUser,

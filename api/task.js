@@ -26,11 +26,19 @@ router.route('/')
   router.route('/comment/user/:idUser/task/:idTask')
   .post(async (req, res) => {
     try {
-      console.log('asasdfasdf');
       let result = await Task.saveComment(req.body.comment, req.params.idUser, req.params.idTask);
       res.status(201).json({id: result.info.insertId});
     } catch (err) {
       console.log(err);
+      res.status(err.code).json({error: err.message});
+    } 
+  });
+
+  router.route('/comment/task/:idTask')
+  .get(async (req, res) => {
+    try {
+      res.json(await Task.getAllCommentsByTask(req.params.idTask));
+    } catch (err) {
       res.status(err.code).json({error: err.message});
     } 
   });
@@ -44,41 +52,11 @@ router.route('/user/:idUser')
     }
   })
 
-router.route('/:id')
-  .get(async (req, res) => {
-    try {
-      let task = await Task.getById(req.params.id);
-      if(task[0])
-        res.json(task[0]);
-      else
-        res.sendStatus(404);
-    } catch (err) {
-      res.status(err.code).json({error: err.message});
-    }    
-  })
-  .put(async (req, res) => {
-    try {
-      await Task.update(req.body, req.params.id);
-      res.sendStatus(200);
-    } catch (err) {
-      res.status(err.code).json({error: err.message});
-    }    
-  });
-
 router.route('/comment/:id')
   .delete(async (req, res) => {
     try {
       let result = await Task.deleteComment(req.params.id);
       res.sendStatus(result.info.affectedRows > 0 ? 204 : 400);
-    } catch (err) {
-      res.status(err.code).json({error: err.message});
-    } 
-  });
-
-router.route('/comment/task/:idTask')
-  .get(async (req, res) => {
-    try {
-      res.json(await Task.getAllCommentsByTask(req.params.idTask));
     } catch (err) {
       res.status(err.code).json({error: err.message});
     } 
@@ -133,6 +111,27 @@ router.route('/file/:idTask')
     }
     else
       res.sendStatus(401);
+  });
+
+  router.route('/:id')
+  .get(async (req, res) => {
+    try {
+      let task = await Task.getById(req.params.id);
+      if(task[0])
+        res.json(task[0]);
+      else
+        res.sendStatus(404);
+    } catch (err) {
+      res.status(err.code).json({error: err.message});
+    }    
+  })
+  .put(async (req, res) => {
+    try {
+      await Task.update(req.body, req.params.id);
+      res.sendStatus(200);
+    } catch (err) {
+      res.status(err.code).json({error: err.message});
+    }    
   });
 
 module.exports = router;
