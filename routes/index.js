@@ -14,9 +14,15 @@ router.use('/api', api);
 router.use('/session', session);
 router.use('/task', task);
 
+const userEmpty = {
+  id: '',
+  name: '',
+  urlImage:'https://www.iconspng.com/images/abstract-user-icon-3/abstract-user-icon-3.jpg'
+}
 
 router.get('/', (req, res) => {
-  res.render('index');
+  const user = req.session.user_id != undefined ? req.session.user[0] : userEmpty;
+  res.render('index', { user: user });
 });
 
 router.route('/:userId')
@@ -25,11 +31,6 @@ router.route('/:userId')
       let tasks = null;
       new Task().getAllInfoByUser(1)
         .then(data => {
-          const userEmpty = {
-            id: '',
-            name: '',
-            urlImage:'https://www.iconspng.com/images/abstract-user-icon-3/abstract-user-icon-3.jpg'
-          }
           const user = req.session.user_id != undefined ? req.session.user[0] : userEmpty;
           res.render('home', { tasks: data, user: user });
         })

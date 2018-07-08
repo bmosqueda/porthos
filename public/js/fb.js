@@ -3,8 +3,9 @@ function statusChangeCallback(response) {
   const btns = document.getElementsByClassName('btn-login');
   if (response.status === 'connected') {
     console.log(response)
+    const token = response.authResponse.accessToken
     FB.api('/me', {fields: 'id,name,email,picture'}, function(user) {
-      window.axios.post(`/session/fb/${response.authResponse}`, user)
+      window.axios.post(`/session/fb/${token}`, user)
         .then(res => {
           window.login = 'fb';
           navbar.user.id = data.id;
