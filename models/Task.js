@@ -100,6 +100,25 @@ class Task extends General {
       throw {message: 'Required paramether not defined', code: 400};
   }
 
+  getAllByLevelAndArea(idLevel, idArea) {
+    if(idLevel && idArea) {
+      let sql = `SELECT * FROM ${this.table} WHERE idSchoolLevel = :idLevel && idArea = :idArea`;
+
+      return this.getBySql(sql, {idLevel: idLevel, idArea: idArea});
+    }
+    else 
+      throw {message: 'Required paramether not defined', code: 400};
+  }
+
+  getAllByTitle(title) {
+    if(title) {
+      let sql = `SELECT * FROM ${this.table} WHERE title LIKE :title`;
+
+      return this.getBySql(sql, {title: `%${title}%`});
+    }
+    else
+      throw {message: 'Required paramether not defined', code: 400};
+  }
   //**************Comments
 /*
   +----------+----------------+------+-----+---------+----------------+

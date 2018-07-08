@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const Task = require('../models/Task');
+const taskModel = require('../models/Task');
+const Task = new taskModel();
 
 router.get('/create', (req, res) => {
   res.render('task/create');
@@ -26,6 +27,32 @@ router.get('/view/:id', (req, res) => {
       });
   } else
     res.status(400).json({err: "Invalid id"});
+});
+
+router.get('/result/level/:idLevel/area/:idArea', async (req, res) => {
+  try {
+    let tasks = await Task.getAllByLevelAndArea(req.params.idLevel, req.params.idArea);
+    // res.render('task/searchsResult', tasks);
+    res.json(tasks);
+  }
+  catch(err) {
+    res.status(err.code).json({err: err.message});
+  }
+});
+
+router.get('/result/text/:title', async (req, res) => {
+  try {
+    let tasks = await Task.getAllByTitle(req.params.title);
+    // res.render('task/searchsResult', tasks);
+    res.json(tasks);
+  }
+  catch(err) {
+    res.status(err.code).json({err: err.message});
+  }
+});
+
+router.get('/create', (req, res) => {
+  res.render('task/create');
 });
 
 module.exports = router;
