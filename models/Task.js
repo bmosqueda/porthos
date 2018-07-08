@@ -141,7 +141,6 @@ class Task extends General {
         idTask: idTask,
         content: content,
       };
-
       return this.getBySql(sql, comment);
     }
     else

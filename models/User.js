@@ -34,9 +34,10 @@ class User extends General {
     if(this.validate(user)) {
       let sql = 
         `INSERT INTO ${this.table} 
-        (name, email, ${user.urlImage ? 'urlImage' : ''}, ${user.token ? 'token' : ''}, school, idArea, info)
-        VALUES(:name, :email, ${user.urlImage ? ':urlImage' : ''}, ${user.token ? ':token' : ''}, :school, :idArea, :info)`;
-
+        (name, email, urlImage, token )
+        VALUES(:name, :email, :urlImage, :token )`;
+      console.log(sql);
+      console.log(user);
       return this.getBySql(sql, user);
     }
     else

@@ -23,6 +23,18 @@ router.route('/')
     }
   });
 
+  router.route('/comment/user/:idUser/task/:idTask')
+  .post(async (req, res) => {
+    try {
+      console.log('asasdfasdf');
+      let result = await Task.saveComment(req.body.comment, req.params.idUser, req.params.idTask);
+      res.status(201).json({id: result.info.insertId});
+    } catch (err) {
+      console.log(err);
+      res.status(err.code).json({error: err.message});
+    } 
+  });
+
 router.route('/user/:idUser')
   .get(async (req,res) => {
     try {
@@ -67,16 +79,6 @@ router.route('/comment/task/:idTask')
   .get(async (req, res) => {
     try {
       res.json(await Task.getAllCommentsByTask(req.params.idTask));
-    } catch (err) {
-      res.status(err.code).json({error: err.message});
-    } 
-  });
-
-router.route('/comment/user/:idUser/task/:idTask')
-  .post(async (req, res) => {
-    try {
-      let result = await Task.saveComment(req.body.comment, req.params.idUser, req.params.idTask);
-      res.status(201).json({id: result.info.insertId});
     } catch (err) {
       res.status(err.code).json({error: err.message});
     } 
