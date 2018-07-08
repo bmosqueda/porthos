@@ -4,19 +4,18 @@ html(lang="en")
     include ../header.pug
   - files = JSON.stringify(task.files)
   title Tarea
-  link(rel="stylesheet", href="/fontawesome/css/solid.css")
   body
     include ../navbar.pug
     .section#app
       .container
         .columns.is-centered
-          .column.is-three-fifths.narrow
+          .column.is-three-fifths
             .content
-              p.is-size-1 #{task.title}
-              P.is-size-3 #{task.author}
-              p.is-size-7 Ultima edicion #{task.modificationDate}
-              br
+              p.is-size-1.is-marginless.has-text-centered #{task.title}
+              P.is-size-3.is-marginless #{task.author}
+              p.is-size-7 Ultima edici&oacute;n: #{task.modificationDate}
               p.has-text-justified #{task.description}
+              hr
               v-client-table(:columns="columns" :data="documents" :options="options")
                 div(slot='type' slot-scope='props')
                   p(v-if='files.images.test(props.row.name)')
@@ -52,38 +51,12 @@ html(lang="en")
                       i.fas.fa-file
                     span &nbsp;Archivo
                 div(slot='options' slot-scope='props')
-                  button.button.is-info(v-if='files.text.test(props.row.name)' @click='')
-                    span.icon
-                      i.fas.fa-eye
-                    span &nbsp;Ver
-                  p(v-else-if='files.images.test(props.row.name)')
-                    span.icon.has-text-word
-                      i.fas.fa-file-word
-                    span &nbsp;Documento
-                  p(v-else-if='files.sheets.test(props.row.name)')
-                    span.icon.has-text-excel
-                      i.fas.fa-file-excel
-                    span &nbsp;Hoja de Calculo
-                  p(v-else-if='files.slides.test(props.row.name)')
-                    span.icon.has-text-ppt
-                      i.fas.fa-file-powerpoint
-                    span &nbsp;Presentaci&oacute;n
-                  p(v-else-if='files.audio.test(props.row.name)')
-                    span.icon.has-text-audio
-                      i.fas.fa-file-audio
-                    span &nbsp;Audio
-                  p(v-else-if='files.video.test(props.row.name)')
-                    span.icon.has-text-video
-                      i.fas.fa-file-video
-                    span &nbsp;Video
-                  p(v-else-if='files.pdf.test(props.row.name)')
-                    span.icon.has-text-pdf
-                      i.fas.fa-file-pdf
-                    span &nbsp;PDF
-                  p(v-else)
-                    span.icon
-                      i.fas.fa-file
-                    span &nbsp;Archivo
+                  .field.is-grouped
+                    p.control
+                      a.button.is-link(:href="`/files/${props.row.name}`")
+                        span.is-icon.is-medium
+                          i.fas.fa-download
+                        span &nbsp;Descargar
       .modal
         .modal-background
         .modal-content

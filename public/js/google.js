@@ -4,7 +4,10 @@ function onSignIn(googleUser) {
   window.axios.post(`/session/google`, {idToken: id_token})
     .then(({data}) => {
       window.login = 'google';
-      console.log(data)
+      navbar.user.id = data.id;
+      navbar.user.name = data.name.split(' ')[0];
+      navbar.user.image = data.urlImage;
+      navbar.activeModal = false;
     })
     .catch(err =>  {
       alert('Sesion no iniciada');
@@ -17,8 +20,11 @@ function signOut() {
   auth2.signOut().then(function () {
     console.log('User signed out.');
     window.axios.post(`/session/logout`)
-      .then(({data}) => {
-        console.log(data);
+      .then(() => { 
+        window.login = '';
+        navbar.user.id = '';
+        navbar.user.name = '';
+        navbar.user.image = 'https://www.iconspng.com/images/abstract-user-icon-3/abstract-user-icon-3.jpg';
       })
       .catch(err => {
         console.log(err);

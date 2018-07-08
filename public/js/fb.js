@@ -3,12 +3,13 @@ function statusChangeCallback(response) {
   const btns = document.getElementsByClassName('btn-login');
   if (response.status === 'connected') {
     console.log(response)
-    window.login = 'fb';
     FB.api('/me', {fields: 'id,name,email,picture'}, function(user) {
-      console.log(user);
       window.axios.post(`/session/fb/${response.authResponse}`, user)
         .then(res => {
-          console.log(res);
+          window.login = 'fb';
+          navbar.user.id = data.id;
+          navbar.user.name = data.name.split(' ')[0];
+          navbar.user.image = data.urlImage;
         })
         .catch(err => {
           alert('Something failed');
@@ -36,6 +37,10 @@ function fbLogin () {
 function fbLogout () {
   FB.logout(function () {
     window.login = '';
+    navbar.user.id = '';
+    navbar.user.name = '';
+    navbar.user.image = 'https://www.iconspng.com/images/abstract-user-icon-3/abstract-user-icon-3.jpg';
+    navbar.activeModal = false;
     console.log('bye');
   });
 }
