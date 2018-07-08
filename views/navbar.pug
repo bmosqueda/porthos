@@ -1,6 +1,11 @@
 script(src="/js/fb.js")
 script(src="/js/google.js")
 script.
+  const user = {
+    id: '!{user.id}',
+    name: '!{user.name.split(" ")[0]}',
+    image: '!{user.urlImage}'
+  }
   window.login = '';
   window.fbAsyncInit = function() {
     FB.init({
@@ -82,10 +87,6 @@ script.
     data: {
       activeBurger: false,
       activeModal: false,
-      user: {
-        id: '!{user.id}',
-        name: '!{user.name.split(" ")[0]}',
-        image: '!{user.urlImage}'
-      }
+      user: user
     }
   })

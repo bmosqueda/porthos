@@ -75,8 +75,7 @@ router.route('/comment/task/:idTask')
 router.route('/comment/user/:idUser/task/:idTask')
   .post(async (req, res) => {
     try {
-      let result = await Task.saveComment(req.body, req.params.idUser, req.params.idTask);
-
+      let result = await Task.saveComment(req.body.comment, req.params.idUser, req.params.idTask);
       res.status(201).json({id: result.info.insertId});
     } catch (err) {
       res.status(err.code).json({error: err.message});
