@@ -25,19 +25,20 @@ script.
       signOut();
   }
 nav#navbar.navbar.is-primary
-  .navbar-brand
-    a.navbar-item(href='/')
-      img(src='/files/logo.png', alt='Porthos', width='112', height='28')
-    a.navbar-burger(role='button', aria-label='menu', aria-expanded='false' @click='activeBurger = !activeBurger')
-      span(aria-hidden='true')
-      span(aria-hidden='true')
-      span(aria-hidden='true')
-  .navbar-menu(:class="{ 'is-active': activeBurger }")
-    .navbar-start
-      a.navbar-item Home
-    .navbar-end
-      .navbar-item(@click='activeModal = !activeModal') Login
-      //- .navbar-item(onclick='logout()') Login
+  .container.column.is-three-fifths
+    .navbar-brand
+      a.navbar-item(href='/')
+        img(src='/files/logo.png', alt='Porthos', width='112', height='28')
+      a.navbar-burger(role='button', aria-label='menu', aria-expanded='false' @click='activeBurger = !activeBurger')
+        span(aria-hidden='true')
+        span(aria-hidden='true')
+        span(aria-hidden='true')
+    .navbar-menu(:class="{ 'is-active': activeBurger }")
+      .navbar-start
+        a.navbar-item Home
+      .navbar-end
+        .navbar-item(@click='activeModal = !activeModal') Login
+        //- .navbar-item(onclick='logout()') Login
   .modal.is-small(:class="{ 'is-active': activeModal }")
     .modal-background
     .modal-content
