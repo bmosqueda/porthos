@@ -8,15 +8,22 @@ router.get('/create', (req, res) => {
 
 router.get('/view/:id', (req, res) => {
   const rgx = /^\d+$/;
-  const t = new Task();
   if (rgx.test(req.params.id)) {
-    t.getByIdAllInfo(req.params.id)
+    Task.getByIdAllInfo(req.params.id)
       .then(task => {
-        t.getAllUserTask(req.params.id, task[0].idAuthor)
+        Task.getAllUserTask(req.params.id, task[0].idAuthor)
         .then(files => {
           task[0].files = files;
           console.log(task);
-          res.render('task/view', { task: task[0] });
+          console.log(req.session.user_id)
+          console.log(req.session.user)
+          const userEmpty = {
+            id: '',
+            name: '',
+            urlImage:'https://www.iconspng.com/images/abstract-user-icon-3/abstract-user-icon-3.jpg'
+          }
+          const user = req.session.user_id != undefined ? req.session.user[0] : userEmpty;
+          res.render('task/view', { task: task[0], user: user });
         })
         .catch(err => {
           res.status(500).json({err: err.message});
