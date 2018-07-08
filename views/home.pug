@@ -3,25 +3,28 @@ html(lang="en")
   head
     include header.pug
   head
-    title Porthus
+    title Home #{user.name} 
   body
     include navbar.pug
-    .section
-      .container
-        if(tasks)
-          each task in tasks
-            article.media
-              figure.media-left
-                p.image.is-64x64
-                  img(src='https://bulma.io/images/placeholders/128x128.png')
-              .media-content
-                .content
-                  p
-                    strong #{task.name}
-                    small #{task.email}
-                    br
-                    | #{task.description}
-            .media-right
-              button.delete
+    .section#app
+      .columns.is-centered
+        .column.is-three-fifths
+          h1.title.is-2.has-text-centered user.name
+
+          if(tasks)
+            each task in tasks
+              article.media
+                figure.media-left
+                  p.image.is-64x64
+                    img(src='https://bulma.io/images/placeholders/128x128.png')
+                .media-content
+                  .content
+                    p
+                      strong #{task.name}
+                      small #{task.email}
+                      br
+                      | #{task.description}
+              .media-right
+                button.delete
     include footer.pug
 script(src="/js/home.js")
