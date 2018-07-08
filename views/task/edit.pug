@@ -1,0 +1,63 @@
+doctype html
+html(lang="en")
+  head
+    include ../header.pug
+    head
+      title Tarea
+    body
+      include ../navbar.pug
+      .section#app
+        .columns.is-centered
+          .column.is-half
+            .field
+              h1.title.is-2.has-text-centered Editar "#{task.title}"
+            .field
+              label(for="title") Título
+              .control
+                input(value=task.title, type="text", class="input", v-model="title", placeholder="Título", maxlength="200")
+            .field
+              label(for="title") Tags
+              .control
+                input(class="input" type="tags" v-model="tags" placeholder="Add Tag" value="Tag1,Tag2,Tag3")
+            .field
+              label(for="title") Nivel
+              .control
+                .select(style="width: 100%;")
+                  select(v-model="levelSelect" style="width: 100%;")
+                    option(disabled value="-1") - Selecciona un nivel - 
+                    option(v-for="level in levels" :value="level.id") {{level.name}}
+            .field
+              label(for="title") Área
+                .control
+                  .select(style="width: 100%;")
+                    select(v-model="areaSelect" style="width: 100%;")
+                      option(disabled value="-1") - Selecciona un área - 
+                      option(v-for="area in areas" :value="area.id") {{area.name}}
+            .field
+              label(for="title") Descripción
+              .control
+                textarea(name="content" id="editor" rows="10")
+            .field
+              label(for="files") Archivos
+              .control
+                input(type="file" id="fileInput" @change="newFile")
+            .field     
+              h1.subtitle.is-4(v-if="files.length == 0") Todavía no has agregado archivos a este trabajo
+              table.table.is-bordered.is-narrow.is-fullwidth(v-else)
+                thead
+                  tr
+                    th Nombre del archivo
+                    th Eliminar
+                tbody
+                  tr(v-for="file in files")
+                    td {{file.name}}
+                    td 
+                      button(class="button is-danger" :value="index" @click="discardFile") Descartar
+            .field
+              .control
+                button.button.is-primary(@click="saveTask") Guardar cambios
+      script.
+        let idTask = `#{task.id}`;
+      script(src="/CKEDITOR/ckeditor.js")
+      script(src="/vue/controllers/edit-task.js")            
+    include ../footer

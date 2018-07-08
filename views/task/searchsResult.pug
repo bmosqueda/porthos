@@ -3,9 +3,51 @@ html(lang="en")
   head
     include ../header.pug
     head
-      title Tarea
+      title Búsqueda
     body
       include ../navbar.pug
       .section#app
-      script(src="/js/searchsResult.js")
+        .columns.is-centered
+          .column.is-three-fifths
+            h1.title.is-2 Resultados
+
+            table.table.is-full-width.is-striped
+              if(tasks.length > 0)
+                each task in tasks
+                  tr
+                    h1.title.is-4 
+                      a(href="/task/view/" + task.id) #{task.title}
+                    h1.subtitle.is-5 #{task.description}
+                    h1.is-6.has-text-right Última modificación: #{task.modificationDate}
+              else
+                br
+                h1.subtitle.is-5 No se encontraron coincidencias para "#{search}"
+
+            .hero-body.has-text-centered
+              h1.subtitle.is-6 ¿No encuentras lo que buscas?, quizá podrías 
+                a(href="/task/create") aportarlo
+              .columns.is-mobile.is-centered
+                .column
+                  .field.has-addons.has-icons-left
+                    .control.is-expanded.has-icons-left
+                      input#txtSearch.input.is-primary(type="text" 
+                        placeholder="Encontrar trabajos, tareas, proyectos... por su título" autofocus v-model.lazy="searchText" @keyup.enter="search")
+                      span.icon.is-small.is-left
+                        i.fa.fa-search
+                    .control
+                      button#search.button.is-primary(@click="search") Buscar
+              h1.subtitle.is-5(style="padding-left: 50px;") Resultados
+
+              h1.subtitle.is-5 Niveles de estudio
+              .control.has-text-centered(style="padding-left: 35px;")
+                label(class="radio" v-for="level in levels" class="subtitle is-6") 
+                  input(type="radio" name="level" :value="level.id" v-model="selectedLevel")
+                  span(style="padding-right:30px;") &nbsp;&nbsp;{{level.name}} 
+              h1.subtitle.is-5(style="padding-left: 50px;") Áreas
+              .columns.has-text-left
+                .column.is-offset-2.is-6#area      
+                .column.is-6#area2
+              button(class="button is-primary" id="btnSearchLevel" @click="searchByLevel") Buscar por área
+
+        script(src="/vue/controllers/index.js")
     include ../footer

@@ -22,7 +22,7 @@ class Task extends General {
     super('tasks');
   }
 
-  //**************Task
+//**************Task
   getAllByUser(id) {
     let sql = `SELECT * FROM tasks WHERE idAuthor = :idUser`;
     return this.getBySql(sql, {idUser: id});
@@ -130,6 +130,7 @@ class Task extends General {
   | content  | varchar(10000) | NO   |     | NULL    |                |
   +----------+----------------+------+-----+---------+----------------+
 */
+//*******Comments
   saveComment(content, idUser, idTask) {
     if(content && idUser && idTask) {
       let sql = 
@@ -176,6 +177,7 @@ class Task extends General {
   | name       | varchar(200) | NO   |     | NULL    |                |
   +------------+--------------+------+-----+---------+----------------+
 */
+//*******Files
   validateFile(file) {
     let props = ['name', 'idTask', 'idAuthor', 'isOfAuthor'];
     for (var i = props.length - 1; i >= 0; i--)
@@ -191,6 +193,17 @@ class Task extends General {
         VALUES(:name, :idTask, :idAuthor, :isOfAuthor)`;
 
       return this.getBySql(sql, file);
+    }
+    else
+      throw {message: 'Required paramether not defined', code: 400};
+  }
+
+  getAllFilesByTask(idTask) {
+    if(idTask) {
+      let sql =  
+        `SELECT * FROM taskFiles WHERE idTask = :idTask AND isOfAuthor = 1`;
+
+      return this.getBySql(sql, {idTask: idTask});
     }
     else
       throw {message: 'Required paramether not defined', code: 400};

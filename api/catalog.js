@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const catalogModel = require('../models/Catalog');
 const Catalog = new catalogModel();
-
+ 
 router.get('/areas', async (req, res) => {
   try { 
     let areas = await Catalog.getAllByTable('areas');

@@ -33,6 +33,18 @@ class Catalog extends General {
     else
       throw {code: 400, message: 'idSchoolLevel not defined'};
   }
+
+  getAreaAndLevelNameByIdArea(idArea) {
+    if(idArea) {
+      let sql = `SELECT areas.*, schoolLevel.name AS levelName FROM areas 
+                INNER JOIN schoolLevel ON areas.idSchoolLevel = schoolLevel.id
+                WHERE areas.id = :idArea`;
+
+      return this.getBySql(sql, {idArea: idArea});
+    }
+    else
+      throw {code: 400, message: 'idArea not defined'};
+  }
 }
 
 module.exports = Catalog;

@@ -33,6 +33,17 @@ router.route('/user/:idUser')
   })
 
 router.route('/:id')
+  .get(async (req, res) => {
+    try {
+      let task = await Task.getById(req.params.id);
+      if(task[0])
+        res.json(task[0]);
+      else
+        res.sendStatus(404);
+    } catch (err) {
+      res.status(err.code).json({error: err.message});
+    }    
+  })
   .put(async (req, res) => {
     try {
       await Task.update(req.body, req.params.id);
@@ -74,6 +85,17 @@ router.route('/comment/user/:idUser/task/:idTask')
 
 // id: id Task
 router.route('/file/:idTask')
+  .get(async (req, res) => {
+    try {
+      let files = await Task.getAllFilesByTask(req.params.idTask);
+      if(files[0])
+        res.json(files[0]);
+      else
+        res.sendStatus(404);
+    } catch (err) {
+      res.status(err.code).json({error: err.message});
+    }    
+  })
   .post(async (req, res) => {
     if(req.session.user_id) {
       if(req.files.file.size <= 10485760) {

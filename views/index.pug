@@ -8,10 +8,10 @@ html(lang="en")
     .section#app
       .columns.is-centered
         .column.is-three-fifths
-          h1.title.is-2 Porthos
-          h1.subtitle.is-5.has-text-justified Te encuentras en una plataforma que pretende ser el medio por el cual enriquecer trabajos, investigaciones y todo tipo de proyectos através de la opinión y aportación de la comunidad.
-          h1.subtitle.is-5.has-text-right "Todos para uno y uno para todos" 
-          h1.subtitle.is-6.has-text-right  - Alejandro Dumas -
+          h1.title.is-2.has-text-centered Porthos
+          h1.subtitle.is-5.has-text-centered Te encuentras en una plataforma que pretende ser el medio por el cual enriquecer trabajos, investigaciones y todo tipo de proyectos através de la opinión y aportación de la comunidad.
+          h1.subtitle.is-5.has-text-centered "Todos para uno y uno para todos" 
+          h1.subtitle.is-6.has-text-centered  - Alejandro Dumas -
           .hero-body.has-text-centered
             h1.subtitle.is-6 Únete, no seas culo :v
             .columns.is-mobile.is-centered
@@ -19,7 +19,7 @@ html(lang="en")
                 .field.has-addons.has-icons-left
                   .control.is-expanded.has-icons-left
                     input#txtSearch.input.is-primary(type="text" 
-                      placeholder="Encontrar trabajos, tareas, proyectos..." autofocus v-model="searchText")
+                      placeholder="Encontrar trabajos, tareas, proyectos...  por su título" autofocus v-model.lazy="searchText" @keyup.enter="search") 
                     span.icon.is-small.is-left
                       i.fa.fa-search
                   .control

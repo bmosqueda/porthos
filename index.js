@@ -27,6 +27,14 @@ app.use(session({
     saveUninitialized: true
 }));
 
+/*app.get('/', (req, res) => {
+  let carreras = ['Literatura', 'Ética', 'Trigonometrá', 'Química', 'Historia'];
+  for (var i = carreras.length - 1; i >= 0; i--) {
+    let sql = "INSERT INTO areas (name, idSchoolLevel) VALUES(:carrera, 3)";
+    General.getBySql(sql, {carrera: carreras[i]});
+  }
+});*/
+
 app.use('/', indexRouter);
 
 /*app.get('/', async (req, res) => {
