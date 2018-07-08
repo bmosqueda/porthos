@@ -18,14 +18,16 @@ router.get('/', (req, res) => {
   res.render('index');
 });
 
-router.route('/home')
+router.route('/:userId')
   .get((req,res) => {
-    let tasks = null;
-    new Task().getAllInfoByUser(1)
-      .then(data => {
-        res.render('home', { tasks: data });
-      })
-      .catch(err => res.status(500).send(err));
+    if (req.session.user_id == req.params.userId) {
+      let tasks = null;
+      new Task().getAllInfoByUser(1)
+        .then(data => {
+          res.render('home', { tasks: data });
+        })
+        .catch(err => res.status(500).send(err));
+    }
   })
 
 module.exports = router;

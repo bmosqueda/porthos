@@ -21,7 +21,7 @@ script.
   function logout () {
     if (window.login == 'fb')
       fbLogout();
-    else 
+    else
       signOut();
   }
 nav#navbar.navbar.is-primary
@@ -35,36 +35,57 @@ nav#navbar.navbar.is-primary
         span(aria-hidden='true')
     .navbar-menu(:class="{ 'is-active': activeBurger }")
       .navbar-start
-        a.navbar-item Home
       .navbar-end
-        .navbar-item(@click='activeModal = !activeModal') Login
-        //- .navbar-item(onclick='logout()') Login
-  .modal.is-small(:class="{ 'is-active': activeModal }")
-    .modal-background
-    .modal-content
-      .modal-card
-        .box
-          .columns.is-centered
-            .column.is-half.has-text-centered
-              figure.image.is-64x64(style="margin: auto")
-                img(src='/content/porthos3.png')
-              br
-              h2.subtitle Inicia sesi&oacute;n en Porthos
-              .field.is-grouped
-                p.control.btn-login
-                  button.button.is-link(onclick="fbLogin()")
-                    span.is-icon.is-medium
-                      i.fab.fa-facebook
-                    span &nbsp;Facebook
-
-                p.control
-                  .btn-login(class="g-signin2" data-onsuccess="onSignIn")
-        button.modal-close.is-large(aria-label='close' @click='activeModal = !activeModal')
+        //- a.navbar-item(href='#') Quienes Somos
+        .navbar-item.has-dropdown.is-hoverable
+          a.navbar-link(:href='`/${user.id}`')
+            img(:src="user.image" style="border-radius: 50%")
+            span &nbsp;{{ user.name }}
+          .navbar-dropdown.is-boxed
+            a.navbar-item(@click='activeModal = !activeModal' v-if='user.id == ""')
+              span.is-icon
+                i.fas.fa-sign-in-alt
+              span &nbsp;Iniciar Sesi&oacute;n
+            div(v-else)
+              a.navbar-item(href="/task/create")
+                span.is-icon
+                  i.fas.fa-plus
+                span &nbsp;Crear Documento
+              a.navbar-item(onclick='logout()')
+                span.is-icon
+                  i.fas.fa-sign-out-alt
+                span &nbsp;Cerrar Sesi&oacute;n
+          //- .navbar-item(onclick='logout()') Login
+    .modal(:class="{ 'is-active': activeModal }")
+      .modal-background
+      .modal-content
+        .modal-card
+          .box
+            .columns.is-centered
+              .column.is-half.has-text-centered
+                figure.image.is-64x64(style="margin: auto")
+                  img(src='/content/porthos3.png')
+                br
+                h2.subtitle Inicia sesi&oacute;n en Porthos
+                .field.is-grouped
+                  p.control
+                    button.button.is-link(onclick="fbLogin()")
+                      span.is-icon.is-medium
+                        i.fab.fa-facebook
+                      span &nbsp;Facebook
+                  p.control
+                    div(class="g-signin2" data-onsuccess="onSignIn")
+          button.modal-close.is-large(aria-label='close' @click='activeModal = !activeModal')
 script.
-  var v = new Vue({
+  const navbar = new Vue({
     el:'#navbar',
     data: {
       activeBurger: false,
       activeModal: false,
+      user: {
+        id: '',
+        name: '',
+        image: 'https://www.iconspng.com/images/abstract-user-icon-3/abstract-user-icon-3.jpg'
+      }
     }
   })

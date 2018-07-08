@@ -27,6 +27,9 @@ const vm = new Vue({
       video: /(asf|lsf|asx|bik|smk|div|divx|dvd|wob|ivf|m1v|mp2v|mp4|mpa|mpe|mpeg|mpg|mpv2|mov|qt|qtl|rpm|wm|wmv|avi)$/,
       pdf: /pdf$/
     }
+  },
+  mounted () {
+    document.getElementsByClassName('form-control')[0].classList = 'input column is-one-third';
   }
 })
 // /files/
