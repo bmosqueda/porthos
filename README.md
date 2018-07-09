@@ -1,9 +1,30 @@
 # Porthos
 > Truénenlo :,v
-
 https://mysterious-journey-29184.herokuapp.com/
 
-
+Tecnologías utilizadas
+- ckeditor
+- fortawesome
+- axios
+- body-parser
+- bulma
+- bulma-extensions
+- bulma-tagsinput
+- express
+- express-form-data
+- express-session
+- mariasql
+- mariasql-promise
+- mv
+- mysql
+- nodemon
+- package.json
+- path
+- pug
+- vue
+- vue-tables-2
+  
+- Base de datos con MariaDB
 > “Todos para uno… Y uno para todos” - Alejandro Dumas
 
 Hay factores en el ámbito estudiantil que impiden que los alumnos realicen un proyecto o tarea de manera eficiente. Uno de los aspectos que más problema da es la falta de inspiración o conocimiento acerca de los temas requeridos. Por lo que nosotros como estudiantes que conocen y viven esta situación elaboraremos una plataforma con el objetivo de compartir los trabajos realizados en los diferentes niveles de escolaridad y áreas de estudio. 
